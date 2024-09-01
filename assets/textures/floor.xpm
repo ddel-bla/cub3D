@@ -1,0 +1,14 @@
+/* floor.xpm */
+static char *floor_xpm[] = {
+"8 8 2 1",             /* Ancho 8, alto 8, 2 colores, 1 carácter por píxel */
+"  c #808080",         /* Espacio representa un gris claro */
+". c #404040",         /* Punto representa un gris oscuro */
+" . . . .",            /* Primer fila: alterna gris claro y oscuro */
+". . . . ",            /* Segunda fila: patrón inverso */
+" . . . .",
+". . . . ",
+" . . . .",
+". . . . ",
+" . . . .",
+". . . . "
+};

@@ -1,0 +1,23 @@
+/* wall.xpm */
+static char *wall_xpm[] = {
+"16 16 3 1",             /* Ancho 16, alto 16, 3 colores, 1 carácter por píxel */
+"  c #8B4513",           /* Espacio representa un marrón oscuro (color de ladrillo) */
+". c #A0522D",           /* Punto representa un marrón más claro (color de ladrillo) */
+"x c #000000",           /* x representa el negro (color de las líneas de separación) */
+"                ",      /* Fila 1: Espacio vacío (no ladrillo visible) */
+"                ",      /* Fila 2: Espacio vacío */
+"  ............  ",      /* Fila 3: Ladrillo (marrón claro) con separación superior e inferior */
+"  ............  ",      /* Fila 4: Ladrillo */
+"  ............  ",      /* Fila 5: Ladrillo */
+"  ............  ",      /* Fila 6: Ladrillo */
+"  ............  ",      /* Fila 7: Ladrillo */
+"xxxxxxxxxxxxxxxx",      /* Fila 8: Línea negra separadora de ladrillos */
+"............... ",      /* Fila 9: Ladrillo */
+"............... ",      /* Fila 10: Ladrillo */
+"............... ",      /* Fila 11: Ladrillo */
+"............... ",      /* Fila 12: Ladrillo */
+"xxxxxxxxxxxxxxxx",      /* Fila 13: Línea negra separadora de ladrillos */
+"                ",      /* Fila 14: Espacio vacío */
+"                ",      /* Fila 15: Espacio vacío */
+"                "       /* Fila 16: Espacio vacío */
+};
