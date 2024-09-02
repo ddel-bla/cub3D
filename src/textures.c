@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include <cub3d.h>
 
 // Función para cargar una única textura desde un archivo XPM
 static void load_texture(t_game *game, int *texture, char *path)

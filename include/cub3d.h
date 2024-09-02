@@ -7,7 +7,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
-#include "mlx.h"          // Incluir MiniLibX
 #include "structs.h"      // Incluir las estructuras definidas
 #include "keys.h"         // Incluir los códigos de teclas
 

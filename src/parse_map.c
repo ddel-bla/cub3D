@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include <cub3d.h>
 
 // Función auxiliar para leer el contenido del archivo en una cadena
 static char *read_file(const char *filename)

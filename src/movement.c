@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include <cub3d.h>
 
 // Función para mover al jugador hacia adelante o hacia atrás
 void move_player(t_game *game, int direction)

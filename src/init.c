@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include <cub3d.h>
 
 // Función para inicializar la estructura del juego
 void init_game(t_game *game)

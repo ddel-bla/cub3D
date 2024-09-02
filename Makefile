@@ -5,8 +5,8 @@
 NAME	=	cub3d
 
 CC		=	gcc
-
-CFLAGS	=	-g -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS	=	-g -Wall -Wextra -Werror -I./include -I./lib/minilibx/
+LDFLAGS =	-L./lib/libft -lft -L./lib/minilibx -lmlx -lX11 -lXext -lm
 
 RM		=	rm -f
 
@@ -24,7 +24,6 @@ SRC		=	./src/main.c \
 			./src/cleanup.c
 
 OBJS	=	$(patsubst ./src/%.c, ./build/%.o, $(SRC))
-INCLUDE	= -L -lft -Lminilibx-linux -lmlx_Linux -lX11 -lXext
 
 # ---------------------------------
 # ---------- LIBRARIES -----------
@@ -64,7 +63,7 @@ $(NAME)		: $(OBJS)
 	@echo $(START)
 	@make -C $(LIBFT) -f Makefile
 	@make -C $(MLX) -f Makefile
-	@$(CC) $(CFLAGS) -o $@ $^ -lmlx -framework OpenGL -framework AppKit $(LIBFT_A)
+	@$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 	@echo $(DONE)
 
 ./build/%.o	: ./src/%.c

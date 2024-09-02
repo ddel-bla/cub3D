@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include <cub3d.h>
 
 // Función para liberar la memoria de las texturas
 void free_textures(t_game *game)

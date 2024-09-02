@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include <cub3d.h>
 
 // Función para dibujar una línea vertical en la imagen
 void draw_line(t_img *img, int x, int start, int end, int color)
