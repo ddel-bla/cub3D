@@ -1,0 +1,67 @@
+# --------------------------------
+# -------- MAIN VARIABLES --------
+# --------------------------------
+
+NAME	=	cub3d
+
+CC		=	gcc
+CFLAGS	=	-g -Wall -Wextra -Werror -I./include -I./lib/minilibx/
+LDFLAGS =	-L./lib/libft -lft -L./lib/minilibx -lmlx -lX11 -lXext -lm
+
+RM		=	rm -f
+
+# ---------------------------------
+# ---------- SRC & OBJS -----------
+# ---------------------------------
+
+SRC		=	./src/main.c \
+			./src/init.c \
+			./src/parse_map.c \
+			./src/render.c \
+			./src/events.c \
+			./src/movement.c \
+			./src/textures.c \
+			./src/cleanup.c
+
+OBJS	=	$(patsubst ./src/%.c, ./build/%.o, $(SRC))
+
+# ---------------------------------
+# ---------- LIBRARIES -----------
+# ---------------------------------
+
+# ............ LIBFT ..............
+LIBFT	=	./lib/libft
+LIBFT_A	=	$(LIBFT)/libft.a
+
+# .......... MiniLibX .............
+MLX		=	./lib/minilibx
+MLX_A	=	$(MLX)/libmlx.a
+
+# ---------------------------------
+# ------------ RULES --------------
+# ---------------------------------
+all			: $(NAME)
+
+$(NAME)		: $(OBJS)
+	@make -C $(LIBFT) -f Makefile
+	@make -C $(MLX) -f Makefile
+	@$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+./build/%.o	: ./src/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+clean:
+	@make -C $(LIBFT) clean
+	@make -C $(MLX) clean
+	@$(RM) -r ./build
+
+fclean: clean
+	@$(RM) $(NAME)
+	@make -C $(LIBFT) fclean
+	@make -C $(MLX) clean
+	@$(RM) $(NAME)
+
+re:	fclean all
+
+.PHONY: all fclean re clean leaks races

@@ -7,8 +7,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
-#include "structs.h"      // Incluir las estructuras definidas
-#include "keys.h"         // Incluir los códigos de teclas
+#include "structs.h"
+#include "keys.h"
+#include "../lib/minilibx/mlx.h"
+#include "../lib/libft/libft.h"
 
 // Definiciones de macros
 #define WIN_WIDTH 800
