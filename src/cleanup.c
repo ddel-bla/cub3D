@@ -1,18 +1,18 @@
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 // Función para liberar la memoria de las texturas
-void free_textures(t_game *game)
-{
-    if (game->textures)
-    {
-        for (int i = 0; i < 4; i++) // Asumiendo que tienes 4 texturas
-        {
-            if (game->textures[i])
-                free(game->textures[i]);
-        }
-        free(game->textures);
-    }
-}
+// void free_textures(t_game *game)
+// {
+//     if (game->textures)
+//     {
+//         for (int i = 0; i < 4; i++) // Asumiendo que tienes 4 texturas
+//         {
+//             if (game->textures[i])
+//                 free(game->textures[i]);
+//         }
+//         free(game->textures);
+//     }
+// }
 
 // Función para liberar la memoria del mapa
 void free_map(t_game *game)

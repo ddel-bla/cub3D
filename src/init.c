@@ -1,4 +1,4 @@
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 // Función para inicializar la estructura del juego
 void init_game(t_game *game)
@@ -44,21 +44,21 @@ void init_window(t_game *game)
 }
 
 // Función para cargar texturas (esqueleto básico)
-void load_textures(t_game *game)
-{
-    // Suponiendo que tengas un array de texturas precargadas
-    // Esto es solo un esqueleto básico. Deberías reemplazarlo
-    // con la lógica de carga de texturas real de tu juego.
-    game->textures = malloc(sizeof(int *) * 4); // Por ejemplo, para 4 texturas
-    if (!game->textures)
-        exit_game(game, "Error: Unable to allocate memory for textures.");
+// void load_textures(t_game *game)
+// {
+//     // Suponiendo que tengas un array de texturas precargadas
+//     // Esto es solo un esqueleto básico. Deberías reemplazarlo
+//     // con la lógica de carga de texturas real de tu juego.
+//     game->textures = malloc(sizeof(int *) * 4); // Por ejemplo, para 4 texturas
+//     if (!game->textures)
+//         exit_game(game, "Error: Unable to allocate memory for textures.");
 
-    // Aquí deberías cargar cada textura en la memoria
-    // Por ejemplo:
-    game->textures[0] = (int *)mlx_xpm_file_to_image(game->window.mlx_ptr, "assets/textures/wall.xpm",
-                                                     &game->window.img.width, &game->window.img.height);
-    if (!game->textures[0])
-        exit_game(game, "Error: Unable to load texture 0.");
-    // Repite para otras texturas...
-}
+//     // Aquí deberías cargar cada textura en la memoria
+//     // Por ejemplo:
+//     game->textures[0] = (int *)mlx_xpm_file_to_image(game->window.mlx_ptr, "assets/textures/wall.xpm",
+//                                                      &game->window.img.width, &game->window.img.height);
+//     if (!game->textures[0])
+//         exit_game(game, "Error: Unable to load texture 0.");
+//     // Repite para otras texturas...
+// }
 

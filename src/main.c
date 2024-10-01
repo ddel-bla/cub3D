@@ -1,4 +1,13 @@
-#include <cub3d.h>
+#include "../include/cub3d.h"
+
+int render_wrapper(void *param)
+{
+    t_game *game;
+
+    game = (t_game *)param; // Convertir el parámetro a t_game *
+    render_frame(game);     // Llamar a la función render_frame
+    return (0);             // Retornar 0, ya que mlx_loop_hook espera un int
+}
 
 int	main(int argc, char **argv)
 {
@@ -27,7 +36,7 @@ int	main(int argc, char **argv)
     mlx_hook(game.window.win_ptr, 17, 1L<<17, close_window, &game); // Close window
 
     // Iniciar el bucle principal del juego
-    mlx_loop_hook(game.window.mlx_ptr, render_frame, &game);
+    mlx_loop_hook(game.window.mlx_ptr, render_wrapper, &game);
     mlx_loop(game.window.mlx_ptr);
 
     // Salir del juego y limpiar recursos

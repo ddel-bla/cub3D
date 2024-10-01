@@ -1,98 +1,72 @@
-# --------------------------------
-# -------- MAIN VARIABLES --------
-# --------------------------------
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Fractolmake                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/05/10 20:24:57 by ddel-bla          #+#    #+#              #
+#    Updated: 2024/09/01 19:43:50 by ddel-bla         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-NAME	=	cub3d
+# COLOR DEFINITION #
+GREEN   = \033[0;92m
+YELLOW  = \033[0;93m
+BLUE    = \033[0;34m
+RESET   = \033[0m
 
-CC		=	gcc
-CFLAGS	=	-g -Wall -Wextra -Werror -I./include -I./lib/minilibx/
-LDFLAGS =	-L./lib/libft -lft -L./lib/minilibx -lmlx -lX11 -lXext -lm
+# Source and object files
+SRCS    =  ./src/main.c \
+           ./src/init.c \
+           ./src/parse_map.c \
+           ./src/render.c \
+           ./src/events.c \
+           ./src/movement.c \
+           ./src/textures.c \
+           ./src/cleanup.c
+OBJS    = $(SRCS:.c=.o)
 
-RM		=	rm -f
+# Executable name
+NAME    = cub3d
 
-# ---------------------------------
-# ---------- SRC & OBJS -----------
-# ---------------------------------
+# Compiler and flags
+CC      = gcc
+INCLUDE = -L ./lib/libft -lft -L ./lib/minilibx -lmlx_Linux -lX11 -lXext -lm
+DEBUG   = -fsanitize=address
+CFLAGS  = -Wall -Werror -Wextra -I ./include
 
-SRC		=	./src/main.c \
-			./src/init.c \
-			./src/parse_map.c \
-			./src/render.c \
-			./src/events.c \
-			./src/movement.c \
-			./src/textures.c \
-			./src/cleanup.c
+# Clean command
+RM      = rm -f
 
-OBJS	=	$(patsubst ./src/%.c, ./build/%.o, $(SRC))
+# Rule to compile .c files into .o files
+.c.o:
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$(YELLOW)Compiling: $< $(RESET)"
 
-# ---------------------------------
-# ---------- LIBRARIES -----------
-# ---------------------------------
+# Main rule to link object files into the final executable
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(INCLUDE)
+	@echo "$(BLUE)cub3d - Compiled!$(RESET)"
 
-# ............ LIBFT ..............
-LIBFT	=	./lib/libft
-LIBFT_A	=	$(LIBFT)/libft.a
+# Default rule
+all: $(NAME)
 
-# .......... MiniLibX .............
-MLX		=	./lib/minilibx
-MLX_A	=	$(MLX)/libmlx.a
+# Debug rule with address sanitizer
+debug: CFLAGS += $(DEBUG)
+debug: all
 
-# ---------------------------------
-# --------- FLOWER POWER ----------
-# ---------------------------------
+# Clean object files
+clean:
+	$(RM) $(OBJS)
+	@echo "$(BLUE)cub3d - Object files cleaned!$(RESET)"
 
-PINK		=	\033[38;5;217m
-TURQUOISE	=	\033[38;5;80m
-YELLOW		=	\033[38;5;229m
-RESET		=	\033[0m
+# Clean object and executable files
+fclean: clean
+	$(RM) $(NAME)
+	@echo "$(BLUE)cub3d - Executable files cleaned!$(RESET)"
 
-START		=	"$(TURQUOISE)Compiling $(YELLOW) Cub3D...$(RESET)"
-DONE		=	"$(TURQUOISE)Compilation $(YELLOW)complete!$(RESET)"
-VALGRIND	=	"$(PINK)Running Valgrind...$(RESET)"
-LEAKS		=	"$(TURQUOISE)[Leak Mode]$(RESET)"
-DATA_RACES	=	"$(TURQUOISE)[Data Races Mode]$(RESET)"
-CLEAN		=	"$(PINK)Cleaning $(YELLOW)files...$(RESET)"
-CLEAN_DONE	=	"$(PINK)Clean $(TURQUOISE)complete!$(RESET)"
+# Recompile everything
+re: fclean all
 
-# ---------------------------------
-# ------------ RULES --------------
-# ---------------------------------
-all			: $(NAME)
-
-$(NAME)		: $(OBJS)
-	@echo $(START)
-	@make -C $(LIBFT) -f Makefile
-	@make -C $(MLX) -f Makefile
-	@$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-	@echo $(DONE)
-
-./build/%.o	: ./src/%.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-clean		:
-	@echo $(CLEAN)
-	@make -C $(LIBFT) clean
-	@make -C $(MLX) clean
-	@$(RM) -r ./build
-	@echo $(CLEAN_DONE)
-
-fclean		: clean
-	@$(RM) $(NAME)
-	@make -C $(LIBFT) fclean
-	@make -C $(MLX) clean
-	@$(RM) $(NAME)
-
-leaks		: re
-	@echo $(VALGRIND)
-	@echo $(LEAKS)
-	valgrind --leak-check=full --track-origins=yes -s ./$(NAME)
-
-races		: re
-	@echo $(VALGRIND)
-	@echo $(DATA_RACES)
-	valgrind --tool=helgrind ./$(NAME)
-
-re			:	fclean all
-
-.PHONY		: all fclean re clean leaks races
+.PHONY: all re clean fclean debug

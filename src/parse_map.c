@@ -1,4 +1,4 @@
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 // Función auxiliar para leer el contenido del archivo en una cadena
 static char *read_file(const char *filename)
@@ -11,15 +11,18 @@ static char *read_file(const char *filename)
     fd = open(filename, O_RDONLY);
     if (fd < 0)
         return (NULL);
-
     content = ft_strdup("");
-    while (get_next_line(fd, &line) > 0)
+    if (!content)
+        return (NULL);
+
+    line = get_next_line(fd);
+    while (line)
     {
         temp = ft_strjoin(content, line);
         free(content);
-        content = ft_strjoin(temp, "\n");
-        free(temp);
+        content = temp;
         free(line);
+        line = get_next_line(fd);
     }
     close(fd);
     return (content);

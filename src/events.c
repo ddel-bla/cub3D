@@ -1,4 +1,4 @@
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 // Manejo de la presión de teclas
 int handle_keypress(int keycode, t_game *game)
