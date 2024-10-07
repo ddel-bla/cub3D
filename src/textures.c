@@ -11,45 +11,57 @@ static void load_texture(t_game *game, int *texture, char *path)
         exit_game(game, "Error: Failed to load texture.");
 
     img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_line, &img.endian);
+    if (!img.data)
+        exit_game(game, "Error: Failed to get texture data address.");
 
-    for (y = 0; y < TEX_HEIGHT; y++)
+    y = 0;
+    while (y < TEX_HEIGHT)
     {
-        for (x = 0; x < TEX_WIDTH; x++)
+        x = 0;
+        while (x < TEX_WIDTH)
         {
             texture[TEX_WIDTH * y + x] = img.data[TEX_WIDTH * y + x];
+            x++;
         }
+        y++;
     }
     mlx_destroy_image(game->window.mlx_ptr, img.img_ptr);
 }
 
+
 // Función para cargar todas las texturas necesarias
 void load_textures(t_game *game)
 {
-    game->textures = (int **)malloc(sizeof(int *) * 4); // Asumimos 4 texturas para 4 tipos de paredes
+    int i;
+
+    i = 0;
+    game->textures = (int **)malloc(sizeof(int *) * 2);
     if (!game->textures)
         exit_game(game, "Error: Failed to allocate memory for textures.");
-
-    for (int i = 0; i < 4; i++)
+    while (i < 2)
     {
         game->textures[i] = (int *)malloc(sizeof(int) * (TEX_WIDTH * TEX_HEIGHT));
         if (!game->textures[i])
             exit_game(game, "Error: Failed to allocate memory for a texture.");
+        i++;
     }
-
-    // Cargar texturas desde archivos XPM
-    load_texture(game, game->textures[0], "assets/textures/wall1.xpm");
-    load_texture(game, game->textures[1], "assets/textures/wall2.xpm");
-    load_texture(game, game->textures[2], "assets/textures/wall3.xpm");
-    load_texture(game, game->textures[3], "assets/textures/wall4.xpm");
+    load_texture(game, game->textures[0], "assets/textures/wall.xpm");
+    load_texture(game, game->textures[1], "assets/textures/floor.xpm");
 }
 
 // Función para liberar la memoria de las texturas
-void free_textures(t_game *game)
-{
-    for (int i = 0; i < 4; i++)
+void free_textures(t_game *game) {
+    int i;
+
+    i = 0;
+    while (i < 2 && game->textures)
     {
         if (game->textures[i])
+        {
             free(game->textures[i]);
+            game->textures[i] = NULL;
+        }
+        i++;
     }
     free(game->textures);
 }

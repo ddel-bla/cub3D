@@ -15,8 +15,8 @@
 // Definiciones de macros
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
-#define TEX_WIDTH 64
-#define TEX_HEIGHT 64
+#define TEX_WIDTH 32
+#define TEX_HEIGHT 32
 
 // Prototipos de funciones en init.c
 void    init_game(t_game *game);

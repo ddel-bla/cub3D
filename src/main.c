@@ -19,14 +19,8 @@ int	main(int argc, char **argv)
         fprintf(stderr, "Usage: %s <map_file.cub>\n", argv[0]);
         return (EXIT_FAILURE);
     }
-
-    // Inicializar el juego
     init_game(&game);
-
-    // Parsear el mapa
     parse_map(&game, argv[1]);
-
-    // Inicializar la ventana y cargar texturas
     init_window(&game);
     load_textures(&game);
 

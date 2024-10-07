@@ -28,32 +28,47 @@ static char *read_file(const char *filename)
     return (content);
 }
 
-// Función para validar el contenido del mapa
-static int validate_map(t_map *map)
+/* static int validate_map(t_map *map)
 {
-    int i, j;
-
-    // Validar que el mapa esté completamente rodeado de paredes (celdas '1')
-    for (i = 0; i < map->height; i++)
+    int i;
+    int j;
+ 
+    i = 0;
+    j = 0;
+    while (i < map->height)
     {
-        for (j = 0; j < map->width; j++)
+        while (j < map->width)
         {
             if (map->grid[i][j] != '1' && map->grid[i][j] != '0')
-                return (0); // Solo se permiten '1' y '0' (o añadir más según las necesidades)
+                return (0);
             if ((i == 0 || i == map->height - 1 || j == 0 || j == map->width - 1) &&
                 map->grid[i][j] != '1')
-                return (0); // Asegurar que los bordes son '1'
+                return (0);
+            j++;
         }
+        i++;
     }
     return (1);
-}
+} */
+void    clean_split(char **split)
+{
+    int i;
 
+    i = 0;
+    while (split[i])
+    {
+        free(split[i]);
+        i++;
+    }
+    free(split);
+}
 // Función para cargar el contenido en la estructura del mapa
 static void load_map(t_game *game, char *content)
 {
     char    **lines;
     int     i;
 
+    i = 0;
     lines = ft_split(content, '\n');
     game->map.height = 0;
     while (lines[game->map.height])
@@ -61,19 +76,18 @@ static void load_map(t_game *game, char *content)
 
     game->map.grid = (char **)malloc(sizeof(char *) * (game->map.height + 1));
     if (!game->map.grid)
-        exit_game(game, "Error: Unable to allocate memory for map grid.");
-
-    for (i = 0; i < game->map.height; i++)
+        exit_game(game, "Error: Unable to allocate memory for map grid.");    
+    while (i < game->map.height)
     {
         game->map.grid[i] = ft_strdup(lines[i]);
         if (!game->map.grid[i])
             exit_game(game, "Error: Unable to allocate memory for map row.");
+        i++;
     }
     game->map.grid[game->map.height] = NULL;
-    free(lines);
-
-    if (!validate_map(&game->map))
-        exit_game(game, "Error: Invalid map.");
+    clean_split(lines);
+  /*   if (!validate_map(&game->map))
+        exit_game(game, "Error: Invalid map."); */
 }
 
 // Función principal para parsear el archivo del mapa
