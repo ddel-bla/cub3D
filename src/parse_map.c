@@ -63,35 +63,35 @@ void    clean_split(char **split)
     free(split);
 }
 // Función para cargar el contenido en la estructura del mapa
-static void load_map(t_game *game, char *content)
+static void load_map(t_game *g, char *content)
 {
     char    **lines;
     int     i;
 
     i = 0;
     lines = ft_split(content, '\n');
-    game->map.height = 0;
-    while (lines[game->map.height])
-        game->map.height++;
+    g->map.height = 0;
+    while (lines[g->map.height])
+        g->map.height++;
 
-    game->map.grid = (char **)malloc(sizeof(char *) * (game->map.height + 1));
-    if (!game->map.grid)
+    g->map.grid = (char **)malloc(sizeof(char *) * (g->map.height + 1));
+    if (!g->map.grid)
         exit_game(game, "Error: Unable to allocate memory for map grid.");    
-    while (i < game->map.height)
+    while (i < g->map.height)
     {
-        game->map.grid[i] = ft_strdup(lines[i]);
-        if (!game->map.grid[i])
+        g->map.grid[i] = ft_strdup(lines[i]);
+        if (!g->map.grid[i])
             exit_game(game, "Error: Unable to allocate memory for map row.");
         i++;
     }
-    game->map.grid[game->map.height] = NULL;
+    g->map.grid[g->map.height] = NULL;
     clean_split(lines);
-  /*   if (!validate_map(&game->map))
+  /*   if (!validate_map(&g->map))
         exit_game(game, "Error: Invalid map."); */
 }
 
 // Función principal para parsear el archivo del mapa
-void parse_map(t_game *game, const char *filename)
+void parse_map(t_game *g, const char *filename)
 {
     char *content;
 
