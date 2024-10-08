@@ -34,7 +34,7 @@ NAME    = cub3d
 CC      = gcc
 INCLUDE = -L ./lib/libft -lft -L ./lib/minilibx -lmlx_Linux -lX11 -lXext -lm
 DEBUG   = -fsanitize=address
-CFLAGS  = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS  = -Wall -Werror -Wextra -g3 -fsanitize=address
 
 # Clean command
 RM      = rm -f

@@ -18,6 +18,7 @@ void init_game(t_game *game)
     game->player.rot_speed = 0.03;
     game->map.grid = NULL;
     game->textures = NULL;
+    ft_memset(&game->map, 0, sizeof(t_map));
 }
 
 // Función para inicializar la ventana y la imagen
