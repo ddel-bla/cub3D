@@ -33,7 +33,6 @@ static int validate_map(t_map *map)
 	int j;
 
 	i = 0;
-	j = 0;
 	while (i < map->height)
 	{
 		j = 0;
@@ -51,7 +50,7 @@ static int validate_map(t_map *map)
 	}
 	return (1);
 }
-void    clean_split(char **split)
+static void    clean_split(char **split)
 {
 	int i;
 
