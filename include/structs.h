@@ -30,6 +30,7 @@ typedef struct s_player {
     double  plane_y; // Plano de la cámara en el eje Y
     double  move_speed;
     double  rot_speed;
+    int     flag_player;
 }   t_player;
 
 // Estructura para el manejo del mapa

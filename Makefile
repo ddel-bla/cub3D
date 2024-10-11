@@ -20,6 +20,8 @@ RESET   = \033[0m
 SRCS    =  ./src/main.c \
            ./src/init.c \
            ./src/parse_map.c \
+		   ./src/parse_aux.c \
+		   ./src/parse_utils.c \
            ./src/render.c \
            ./src/events.c \
            ./src/movement.c \

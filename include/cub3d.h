@@ -34,7 +34,12 @@ void    rotate_player(t_game *game, double angle);
 
 // Prototipos de funciones en parse_map.c
 void    parse_map(t_game *game, const char *filename);
-
+int     validate_map(t_game *game);
+int     check_map_grid(t_game *game, int *player_x, int *player_y);
+void    find_player(t_game *game, int i, int j);
+int     is_player_surrounded(t_map *map, int player_x, int player_y);
+int     is_valid_char(char c);
+int     is_border(int i, int j, t_map *map);
 // Prototipos de funciones en render.c
 void    render_frame(t_game *game);
 void    draw_line(t_img *img, int x, int start, int end, int color);
@@ -44,6 +49,7 @@ void    load_textures(t_game *game);
 void    free_textures(t_game *game);
 
 // Prototipos de funciones en cleanup.c
+void    clean_split(char **split);
 void    free_map(t_game *game);
 void    free_window(t_game *game);
 void    exit_game(t_game *game, const char *msg);

@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cfeliz-r < cfeliz-r@student.42madrid.com>  #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024-10-11 10:35:17 by cfeliz-r          #+#    #+#             */
+/*   Updated: 2024-10-11 10:35:17 by cfeliz-r         ###   ########.42madri  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
-static char *read_file(const char *filename)
+static char	*read_file(const char *filename)
 {
-	int     fd;
-	char    *line;
-	char    *content;
-	char    *temp;
+	int		fd;
+	char	*line;
+	char	*content;
+	char	*temp;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -13,7 +25,6 @@ static char *read_file(const char *filename)
 	content = ft_strdup("");
 	if (!content)
 		return (NULL);
-
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -27,32 +38,9 @@ static char *read_file(const char *filename)
 	return (content);
 }
 
-static int validate_map(t_map *map)
+void	clean_split(char **split)
 {
-	int i;
-	int j;
-
-	i = 0;
-	while (i < map->height)
-	{
-		j = 0;
-		while (j < map->width)
-		{
-			if (map->grid[i][j] != '1' && map->grid[i][j] != '0'
-				&& map->grid[i][j] != 'N')
-				return (0);
-			if ((i == 0 || i == map->height - 1 || j == 0 || j == map->width - 1)
-				&& map->grid[i][j] != '1')
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-static void    clean_split(char **split)
-{
-	int i;
+	int	i;
 
 	i = 0;
 	while (split[i])
@@ -63,10 +51,10 @@ static void    clean_split(char **split)
 	free(split);
 }
 
-static void load_map(t_game *game, char *content)
+static void	load_map(t_game *game, char *content)
 {
-	char    **lines;
-	int     i;
+	char	**lines;
+	int		i;
 
 	i = 0;
 	lines = ft_split(content, '\n');
@@ -74,7 +62,7 @@ static void load_map(t_game *game, char *content)
 	while (lines[game->map.height])
 		game->map.height++;
 	game->map.width = ft_strlen(lines[0]);
-	game->map.grid = (char **)malloc(sizeof(char *) * (game->map.height + 1));
+	game->map.grid = malloc(sizeof(char *) * (game->map.height + 1));
 	if (!game->map.grid)
 		exit_game(game, "Error: Unable to allocate memory for map grid.");
 	while (i < game->map.height)
@@ -86,18 +74,35 @@ static void load_map(t_game *game, char *content)
 	}
 	game->map.grid[game->map.height] = NULL;
 	clean_split(lines);
-	if (validate_map(&game->map) == 0)
-		exit_game(game, "Error: Invalid map.");
 }
 
-void parse_map(t_game *game, const char *filename)
+int	validate_map(t_game *game)
 {
-    char *content;
+	int	player_x;
+	int	player_y;
 
-    content = read_file(filename);
-    if (!content)
-        exit_game(game, "Error: Unable to read map file.");
-    load_map(game, content);
-    free(content);
+	player_x = -1;
+	player_y = -1;
+	if (check_map_grid(game, &player_x, &player_y) == 0)
+		return (0);
+	if (player_x == -1 || player_y == -1)
+		exit_game(game, "Error: Player not found in the map.");
+	if (!is_player_surrounded(&game->map, player_x, player_y))
+		exit_game(game, "Error: Player is not surrounded by walls.");
+	return (1);
 }
 
+void	parse_map(t_game *game, const char *filename)
+{
+	char	*content;
+
+	content = read_file(filename);
+	if (!content)
+		exit_game(game, "Error: Unable to read map file.");
+	load_map(game, content);
+	if (validate_map(game) == 0)
+		exit_game(game, "Error: Invalid map.");
+	if (game->player.flag_player != 1)
+		exit_game(game, "Error: multiple players.");
+	free(content);
+}
