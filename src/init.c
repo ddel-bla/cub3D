@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:10:32 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/08 14:54:07 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/12 09:43:29 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	init_window(t_game *g)
 	g->win.win_p = mlx_new_window(g->win.mlx_p, WIN_W, WIN_H, "Cub3D");
 	if (!g->win.win_p)
 		exit_game(g, "Error: Unable to create window.");
-	g->window.img.img_ptr = mlx_new_image(g->win.mlx_p, WIN_W, WIN_H);
-	if (!g->window.img.img_ptr)
+	g->win.img.img_ptr = mlx_new_image(g->win.mlx_p, WIN_W, WIN_H);
+	if (!g->win.img.img_ptr)
 		exit_game(g, "Error: Unable to create image.");
-	g->window.img.data = (int *)mlx_get_data_addr(g->window.img.img_ptr,
-			&g->window.img.bpp,
-			&g->window.img.size_line,
-			&g->window.img.endian);
-	if (!g->window.img.data)
+	g->win.img.data = (int *)mlx_get_data_addr(g->win.img.img_ptr,
+			&g->win.img.bpp,
+			&g->win.img.size_line,
+			&g->win.img.endian);
+	if (!g->win.img.data)
 		exit_game(g, "Error: Unable to get image data address.");
 }

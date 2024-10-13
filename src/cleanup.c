@@ -6,35 +6,25 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:59:06 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/08 15:02:01 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/12 14:23:27 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-// Función para liberar la memoria de las texturas
-// void free_textures(t_game *g)
-// {
-//	 if (g->textures)
-//	 {
-//		 for (int i = 0; i < 4; i++) // Asumiendo que tienes 4 texturas
-//		 {
-//			 if (g->textures[i])
-//				 free(g->textures[i]);
-//		 }
-//		 free(g->textures);
-//	 }
-// }
-
 // Función para liberar la memoria del mapa
 void	free_map(t_game *g)
 {
+	int	i;
+
+	i = 0;
 	if (g->map.grid)
 	{
-		for (int i = 0; i < g->map.height; i++)
+		while (i < g->map.height)
 		{
 			if (g->map.grid[i])
 				free(g->map.grid[i]);
+			i++;
 		}
 		free(g->map.grid);
 	}
