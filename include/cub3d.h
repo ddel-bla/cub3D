@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:56:18 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/12 14:18:02 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:39:35 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 // Definiciones de macros
 # define WIN_W 640
 # define WIN_H 640
-# define TEX_W 32
-# define TEX_H 32
+# define TEX_W 64
+# define TEX_H 64
 
 // Prototipos de funciones en cleanup.c
 void	free_map(t_game *g);

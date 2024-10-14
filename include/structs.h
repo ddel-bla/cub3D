@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:44:39 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/12 14:21:49 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:32:22 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_game
 	t_map		map;
 	int			**textures;
 }	t_game;
-
+//---------
 typedef struct s_ray
 {
 	double	ray_dir_x;        // Dirección del rayo en el eje X

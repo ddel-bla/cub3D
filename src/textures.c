@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:14:58 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/12 14:18:02 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:42:48 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	load_texture(t_game *g, int *texture, char *path)
 	i.img_ptr = mlx_xpm_file_to_image(g->win.mlx_p, path, &i.width, &i.height);
 	if (!i.img_ptr)
 		exit_game(g, "Error: Failed to load texture.");
+	if (i.width != TEX_W || i.height != TEX_H)
+		exit_game(g, "Error: Texture size mismatch.");
 	i.data = (int *)mlx_get_data_addr(i.img_ptr, &i.bpp, &i.size_line,
 			&i.endian);
 	if (!i.data)
@@ -39,33 +41,39 @@ static void	load_texture(t_game *g, int *texture, char *path)
 	mlx_destroy_image(g->win.mlx_p, i.img_ptr);
 }
 
-// Función para cargar todas las texturas necesarias
 void	load_textures(t_game *g)
 {
 	int	i;
 
-	i = 0;
-	g->textures = (int **)malloc(sizeof(int *) * 2);
+	if (g->textures)
+		free_textures(g);
+	g->textures = (int **)malloc(sizeof(int *) * 4);
 	if (!g->textures)
 		exit_game(g, "Error: Failed to allocate memory for textures.");
-	while (i < 2)
+	i = 0;
+	while (i < 4)
 	{
 		g->textures[i] = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
 		if (!g->textures[i])
 			exit_game(g, "Error: Failed to allocate memory for a texture.");
 		i++;
 	}
-	load_texture(g, g->textures[0], "assets/textures/wall.xpm");
+	fprintf(stderr, "Loading textures...\n");
+	load_texture(g, g->textures[0], "assets/textures/floor.xpm");
 	load_texture(g, g->textures[1], "assets/textures/floor.xpm");
+	load_texture(g, g->textures[2], "assets/textures/floor.xpm");
+	load_texture(g, g->textures[3], "assets/textures/floor.xpm");
+	fprintf(stderr, "All textures loaded successfully.\n");
 }
 
-// Función para liberar la memoria de las texturas
 void	free_textures(t_game *g)
 {
 	int	i;
 
+	if (!g->textures)
+		return ;
 	i = 0;
-	while (i < 2 && g->textures)
+	while (i < 4)
 	{
 		if (g->textures[i])
 		{
@@ -75,4 +83,5 @@ void	free_textures(t_game *g)
 		i++;
 	}
 	free(g->textures);
+	g->textures = NULL;
 }

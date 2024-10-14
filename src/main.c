@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:11:55 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/12 10:23:29 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:23:03 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ int	main(int argc, char **argv)
 	load_textures(&game);
 	mlx_hook(game.win.win_p, 2, 1L << 0, handle_keypress, &game);
 	mlx_hook(game.win.win_p, 17, 1L << 17, close_window, &game);
-	fprintf(stderr, "I\n");
 	render_frame(&game);
-	fprintf(stderr, "F\n");
 	mlx_loop(game.win.mlx_p);
 	exit_game(&game, NULL);
 	return (EXIT_SUCCESS);
