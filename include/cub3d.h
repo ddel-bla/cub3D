@@ -40,6 +40,9 @@ void    find_player(t_game *game, int i, int j);
 int     is_player_surrounded(t_map *map, int player_x, int player_y);
 int     is_valid_char(char c);
 int     is_border(int i, int j, t_map *map);
+void	parse_textures(t_game *game, char *line);
+int     parse_color(char *str);
+int     ft_isspace(int c);
 // Prototipos de funciones en render.c
 void    render_frame(t_game *game);
 void    draw_line(t_img *img, int x, int start, int end, int color);

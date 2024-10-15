@@ -44,8 +44,9 @@ int	check_map_grid(t_game *game, int *player_x, int *player_y)
 		j = 0;
 		while (j < game->map.width)
 		{
-			if (!is_valid_char(game->map.grid[i][j])
-			|| (is_border(i, j, &game->map) && game->map.grid[i][j] != '1'))
+			if (!is_valid_char(game->map.grid[i][j]))
+				return (0);
+			if (is_border(i, j, &game->map) && game->map.grid[i][j] != '1')
 				return (0);
 			if (game->map.grid[i][j] == 'N' || game->map.grid[i][j] == 'S' ||
 				game->map.grid[i][j] == 'W' || game->map.grid[i][j] == 'E')

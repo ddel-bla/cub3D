@@ -1,67 +1,77 @@
 #include "../include/cub3d.h"
 
-// Función para cargar una única textura desde un archivo XPM
-static void load_texture(t_game *game, int *texture, char *path)
+void	load_textures(t_game *game)
 {
-    t_img img;
-    int x, y;
+	game->textures[0] = mlx_xpm_file_to_image(game->window.mlx_ptr,
+				game->texture_paths.north_texture,
+				&game->map.width, &game->map.height);
+	if (!game->textures[0])
+		exit_game(game, "Error: Failed to load north texture.");
 
-    img.img_ptr = mlx_xpm_file_to_image(game->window.mlx_ptr, path, &img.width, &img.height);
-    if (!img.img_ptr)
-        exit_game(game, "Error: Failed to load texture.");
+	game->textures[1] = mlx_xpm_file_to_image(game->window.mlx_ptr,
+				game->texture_paths.south_texture,
+				&game->map.width, &game->map.height);
+	if (!game->textures[1])
+		exit_game(game, "Error: Failed to load south texture.");
 
-    img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_line, &img.endian);
-    if (!img.data)
-        exit_game(game, "Error: Failed to get texture data address.");
+	game->textures[2] = mlx_xpm_file_to_image(game->window.mlx_ptr,
+				game->texture_paths.west_texture,
+				&game->map.width, &game->map.height);
+	if (!game->textures[2])
+		exit_game(game, "Error: Failed to load west texture.");
 
-    y = 0;
-    while (y < TEX_HEIGHT)
-    {
-        x = 0;
-        while (x < TEX_WIDTH)
-        {
-            texture[TEX_WIDTH * y + x] = img.data[TEX_WIDTH * y + x];
-            x++;
-        }
-        y++;
-    }
-    mlx_destroy_image(game->window.mlx_ptr, img.img_ptr);
+	game->textures[3] = mlx_xpm_file_to_image(game->window.mlx_ptr,
+				game->texture_paths.east_texture,
+				&game->map.width, &game->map.height);
+	if (!game->textures[3])
+		exit_game(game, "Error: Failed to load east texture.");
+}
+int ft_isspace(int c)
+{
+    return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r');
 }
 
-
-// Función para cargar todas las texturas necesarias
-void load_textures(t_game *game)
+int parse_color(char *str)
 {
-    int i;
+	int r;
+	int g;
+	int b;
 
-    i = 0;
-    game->textures = (int **)malloc(sizeof(int *) * 2);
-    if (!game->textures)
-        exit_game(game, "Error: Failed to allocate memory for textures.");
-    while (i < 2)
-    {
-        game->textures[i] = (int *)malloc(sizeof(int) * (TEX_WIDTH * TEX_HEIGHT));
-        if (!game->textures[i])
-            exit_game(game, "Error: Failed to allocate memory for a texture.");
-        i++;
-    }
-    load_texture(game, game->textures[0], "assets/textures/wall.xpm");
-    load_texture(game, game->textures[1], "assets/textures/floor.xpm");
+	r = ft_atoi(str);
+	while (ft_isdigit(*str))
+		str++;
+	if (*str != ',')
+		return (-1);
+	str++;
+	g = ft_atoi(str);
+	while (ft_isdigit(*str))
+		str++;
+	if (*str != ',')
+		return (-1);
+	str++;
+	b = ft_atoi(str);
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+		return (-1);
+	return (r << 16 | g << 8 | b);
 }
 
-// Función para liberar la memoria de las texturas
-void free_textures(t_game *game) {
-    int i;
-
-    i = 0;
-    while (i < 2 && game->textures)
+void	parse_textures(t_game *game, char *line)
+{
+	if (ft_strncmp(line, "NO ", 3) == 0)
+		game->texture_paths.north_texture = ft_strdup(line + 3);
+	else if (ft_strncmp(line, "SO ", 3) == 0)
+		game->texture_paths.south_texture = ft_strdup(line + 3);
+	else if (ft_strncmp(line, "WE ", 3) == 0)
+		game->texture_paths.west_texture = ft_strdup(line + 3);
+	else if (ft_strncmp(line, "EA ", 3) == 0)
+		game->texture_paths.east_texture = ft_strdup(line + 3);
+	else if (ft_strncmp(line, "F ", 2) == 0)
+		game->texture_paths.floor_color = parse_color(line + 2);
+	else if (ft_strncmp(line, "C ", 2) == 0)
     {
-        if (game->textures[i])
-        {
-            free(game->textures[i]);
-            game->textures[i] = NULL;
-        }
-        i++;
+		game->texture_paths.ceiling_color = parse_color(line + 2);
+        game->control_flags = 1;
     }
-    free(game->textures);
+	else
+		exit_game(game, "Error: Invalid identifier in .cub file.");
 }

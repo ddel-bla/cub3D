@@ -3,7 +3,6 @@
 // Función para inicializar la estructura del juego
 void init_game(t_game *game)
 {
-    // Inicialización de la ventana y la imagen
     game->window.mlx_ptr = NULL;
     game->window.win_ptr = NULL;
     game->window.img.img_ptr = NULL;
@@ -17,7 +16,10 @@ void init_game(t_game *game)
     game->player.move_speed = 0.05;
     game->player.rot_speed = 0.03;
     game->map.grid = NULL;
-    game->textures = NULL;
+    game->textures = malloc(sizeof(void *) * 4);
+	if (!game->textures)
+		exit_game(game, "Error: Failed to allocate memory for textures.");
+	ft_bzero(game->textures, sizeof(void *) * 4);
     ft_memset(&game->map, 0, sizeof(t_map));
 }
 

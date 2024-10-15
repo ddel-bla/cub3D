@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfeliz-r < cfeliz-r@student.42madrid.com>  #+#  +:+       +#+        */
+/*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-11 10:35:17 by cfeliz-r          #+#    #+#             */
-/*   Updated: 2024-10-11 10:35:17 by cfeliz-r         ###   ########.42madri  */
+/*   Created: 2024/10/11 10:35:17 by cfeliz-r          #+#    #+#             */
+/*   Updated: 2024/10/15 15:53:25 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	load_map(t_game *game, char *content)
 	int		i;
 
 	i = 0;
+
 	lines = ft_split(content, '\n');
 	game->map.height = 0;
 	while (lines[game->map.height])
@@ -85,24 +86,37 @@ int	validate_map(t_game *game)
 	player_y = -1;
 	if (check_map_grid(game, &player_x, &player_y) == 0)
 		return (0);
+	exit(0);
 	if (player_x == -1 || player_y == -1)
 		exit_game(game, "Error: Player not found in the map.");
 	if (!is_player_surrounded(&game->map, player_x, player_y))
-		exit_game(game, "Error: Player is not surrounded by walls.");
+		exit_game(game, "Error: Player is surrounded by walls.");
 	return (1);
 }
 
 void	parse_map(t_game *game, const char *filename)
 {
 	char	*content;
+	char	**lines;
+	int		i;
 
 	content = read_file(filename);
 	if (!content)
 		exit_game(game, "Error: Unable to read map file.");
-	load_map(game, content);
+	lines = ft_split(content, '\n');
+	i = 0;
+	while (lines[i] != NULL)	
+	{
+		if(game->control_flags == 1)
+			break;
+		parse_textures(game, lines[i]);
+		i++;
+	}
+	load_map(game, lines[i]);
 	if (validate_map(game) == 0)
 		exit_game(game, "Error: Invalid map.");
 	if (game->player.flag_player != 1)
 		exit_game(game, "Error: multiple players.");
 	free(content);
 }
+
