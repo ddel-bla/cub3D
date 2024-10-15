@@ -6,7 +6,7 @@
 #    By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 20:24:57 by ddel-bla          #+#    #+#              #
-#    Updated: 2024/10/11 18:58:35 by ddel-bla         ###   ########.fr        #
+#    Updated: 2024/10/15 18:43:22 by ddel-bla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,9 @@ RESET   = \033[0m
 SRCS    =  ./src/main.c \
            ./src/init.c \
            ./src/parse_map.c \
+           ./src/render_dda.c \
+		   ./src/render_ray.c \
+           ./src/render_walls.c \
            ./src/render.c \
            ./src/events.c \
            ./src/movement.c \

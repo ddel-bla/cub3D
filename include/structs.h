@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:44:39 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/14 18:32:22 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:13:16 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,12 @@ typedef struct s_game
 	t_window	win;
 	t_player	pla;
 	t_map		map;
-	int			**textures;
+	int			floor;
+	int			ceiling;
+	int			*no;
+	int			*so;
+	int			*ea;
+	int			*we;
 }	t_game;
 //---------
 typedef struct s_ray

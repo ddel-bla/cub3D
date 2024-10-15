@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 09:32:46 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/14 14:22:52 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:20:56 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static void	load_map(t_game *g, char *content)
 		g->map.grid[i] = ft_strdup(lines[i]);
 		if (!g->map.grid[i])
 			exit_game(g, "Error: Unable to allocate memory for map row.");
-		fprintf(stderr, "Loaded map row %d: %s\n", i, g->map.grid[i]);  // Depuración para verificar
 		i++;
 	}
 	g->map.grid[g->map.height] = NULL;
@@ -88,6 +87,5 @@ void	parse_map(t_game *g, const char *filename)
 	if (!content)
 		exit_game(g, "Error: Unable to read map file.");
 	load_map(g, content);
-	fprintf(stderr, "Map width: %d, Map height: %d\n", g->map.width, g->map.height);
 	free(content);
 }

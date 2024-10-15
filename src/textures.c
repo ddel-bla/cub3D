@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:14:58 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/14 18:42:48 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:22:41 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,45 +43,18 @@ static void	load_texture(t_game *g, int *texture, char *path)
 
 void	load_textures(t_game *g)
 {
-	int	i;
-
-	if (g->textures)
-		free_textures(g);
-	g->textures = (int **)malloc(sizeof(int *) * 4);
-	if (!g->textures)
-		exit_game(g, "Error: Failed to allocate memory for textures.");
-	i = 0;
-	while (i < 4)
-	{
-		g->textures[i] = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
-		if (!g->textures[i])
-			exit_game(g, "Error: Failed to allocate memory for a texture.");
-		i++;
-	}
 	fprintf(stderr, "Loading textures...\n");
-	load_texture(g, g->textures[0], "assets/textures/floor.xpm");
-	load_texture(g, g->textures[1], "assets/textures/floor.xpm");
-	load_texture(g, g->textures[2], "assets/textures/floor.xpm");
-	load_texture(g, g->textures[3], "assets/textures/floor.xpm");
+	load_texture(g, g->no, "assets/textures/1.xpm");
+	load_texture(g, g->so, "assets/textures/2.xpm");
+	load_texture(g, g->ea, "assets/textures/3.xpm");
+	load_texture(g, g->we, "assets/textures/4.xpm");
 	fprintf(stderr, "All textures loaded successfully.\n");
 }
 
 void	free_textures(t_game *g)
 {
-	int	i;
-
-	if (!g->textures)
-		return ;
-	i = 0;
-	while (i < 4)
-	{
-		if (g->textures[i])
-		{
-			free(g->textures[i]);
-			g->textures[i] = NULL;
-		}
-		i++;
-	}
-	free(g->textures);
-	g->textures = NULL;
+	free(g->no);
+	free(g->so);
+	free(g->ea);
+	free(g->we);
 }

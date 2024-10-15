@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:56:18 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/13 17:39:35 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:46:56 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,18 @@ void	rotate_player(t_game *g, double angle);
 
 // Prototipos de funciones en parse_map.c
 void	parse_map(t_game *g, const char *filename);
+
+// Prototipos de funciones en render_dda.c
+int		handle_dda(t_game *g, t_ray *r);
+
+// Prototipos de funciones en render_ray.c
+void	update_ray_position(t_player *p, t_ray *r);
+void	update_ray_direction(t_player *p, int x, t_ray *r);
+
+// Prototipos de funciones en render_walls.c
+void	draw_walls(t_game *g, int x, t_ray *r, t_wall *wall);
+void	calculate_wall_parameters(t_wall *wall, t_ray *r);
+void	calculate_wall_distance(t_player *p, t_ray *r);
 
 // Prototipos de funciones en render.c
 void	render_frame(t_game *g);

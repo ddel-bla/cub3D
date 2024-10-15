@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:10:32 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/14 18:20:10 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:17:17 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,21 @@ void	init_game(t_game *g)
 	g->win.win_p = NULL;
 	g->win.img.img_ptr = NULL;
 	g->win.img.data = NULL;
-	g->pla.pos_x = 3.5;  // Posición en el centro del bloque (3,3)
+	g->pla.pos_x = 3.5;
 	g->pla.pos_y = 3.5;
-	g->pla.dir_x = 0.0;  // Mirando hacia el norte
+	g->pla.dir_x = 0.0;
 	g->pla.dir_y = -1.0;
-	g->pla.plane_x = 0.66;  // Plano de la cámara para un FOV de 66 grados
+	g->pla.plane_x = 0.66;
 	g->pla.plane_y = 0.0;
 	g->pla.move_speed = 0.05;
 	g->pla.rot_speed = 0.03;
 	g->map.grid = NULL;
-	g->textures = NULL;
+	g->ceiling = 0x87CEEB;
+	g->floor = 0x3F3F3F;
+	g->no = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
+	g->so = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
+	g->ea = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
+	g->we = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
 }
 
 void	init_window(t_game *g)
