@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:56:18 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/15 18:46:56 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/16 11:13:27 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	calculate_wall_distance(t_player *p, t_ray *r);
 
 // Prototipos de funciones en render.c
 void	render_frame(t_game *g);
-void	draw_line(t_img *img, t_line *line);
 
 // Prototipos de funciones en textures.c
 void	load_textures(t_game *g);

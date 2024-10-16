@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:21:04 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/15 18:49:48 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:31:51 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	*select_texture(t_game *g, t_ray *r)
 	return (g->no);
 }
 
-int	get_wall_color(t_game *g, t_ray *r, t_wall *wall)
+int	get_wall_color(t_game *g, t_ray *r, t_wall *wall, int y)
 {
 	int		tex_x;
 	int		tex_y;
@@ -40,15 +40,22 @@ int	get_wall_color(t_game *g, t_ray *r, t_wall *wall)
 	if ((r->side == 0 && r->ray_dir_x > 0)
 		|| (r->side == 1 && r->ray_dir_y < 0))
 		tex_x = TEX_W - tex_x - 1;
-	tex_y = (int)(((wall->draw_start - WIN_H / 2 + wall->line_height / 2)
-				* TEX_H) / wall->line_height);
+	if (tex_x < 0)
+		tex_x = 0;
+	else if (tex_x >= TEX_W)
+		tex_x = TEX_W - 1;
+	tex_y = (int)(((y - wall->draw_start) * TEX_H) / wall->line_height);
+	if (tex_y < 0)
+		tex_y = 0;
+	else if (tex_y >= TEX_H)
+		tex_y = TEX_H - 1;
 	return (texture[TEX_W * tex_y + tex_x]);
 }
 
 void	draw_walls(t_game *g, int x, t_ray *r, t_wall *wall)
 {
-	t_line	line;
-	int		y;
+	int	y;
+	int	color;
 
 	y = 0;
 	while (y < wall->draw_start)
@@ -56,11 +63,13 @@ void	draw_walls(t_game *g, int x, t_ray *r, t_wall *wall)
 		g->win.img.data[y * WIN_W + x] = g->ceiling;
 		y++;
 	}
-	line.x = x;
-	line.start = wall->draw_start;
-	line.end = wall->draw_end;
-	line.color = get_wall_color(g, r, wall);
-	draw_line(&g->win.img, &line);
+	y = wall->draw_start;
+	while (y <= wall->draw_end)
+	{
+		color = get_wall_color(g, r, wall, y);
+		g->win.img.data[y * WIN_W + x] = color;
+		y++;
+	}
 	y = wall->draw_end + 1;
 	while (y < WIN_H)
 	{
@@ -88,4 +97,6 @@ void	calculate_wall_distance(t_player *p, t_ray *r)
 	else
 		r->perp_w_d = (r->map_y - p->pos_y + (1 - r->step_y) / 2)
 			/ r->ray_dir_y;
+	if (r->perp_w_d <= 0.0001)
+		r->perp_w_d = 0.0001;
 }

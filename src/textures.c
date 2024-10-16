@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:14:58 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/15 18:22:41 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/16 20:32:20 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static void	load_texture(t_game *g, int *texture, char *path)
 void	load_textures(t_game *g)
 {
 	fprintf(stderr, "Loading textures...\n");
-	load_texture(g, g->no, "assets/textures/1.xpm");
-	load_texture(g, g->so, "assets/textures/2.xpm");
-	load_texture(g, g->ea, "assets/textures/3.xpm");
+	load_texture(g, g->no, "assets/textures/4.xpm");
+	load_texture(g, g->so, "assets/textures/4.xpm");
+	load_texture(g, g->ea, "assets/textures/4.xpm");
 	load_texture(g, g->we, "assets/textures/4.xpm");
 	fprintf(stderr, "All textures loaded successfully.\n");
 }
