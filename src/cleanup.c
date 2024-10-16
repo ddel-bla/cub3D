@@ -61,3 +61,15 @@ void exit_game(t_game *game, const char *msg)
     else
         exit(EXIT_SUCCESS);
 }
+void	clean_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}

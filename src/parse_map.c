@@ -38,43 +38,67 @@ static char	*read_file(const char *filename)
 	return (content);
 }
 
-void	clean_split(char **split)
+static char *replace_spaces_with_one(const char *line, int target_length)
 {
-	int	i;
+	char *new_line;
+	int i;
 
+	new_line = malloc(target_length + 1);
+	if (!new_line)
+		return NULL;
 	i = 0;
-	while (split[i])
+	while (i < target_length)
 	{
-		free(split[i]);
+		if (i < ft_strlen(line))
+		{
+			if (line[i] == ' ')
+				new_line[i] = '1';
+			else
+				new_line[i] = line[i];
+		}
+		else
+		{
+			new_line[i] = '1';
+		}
 		i++;
 	}
-	free(split);
+	new_line[target_length] = '\0';
+
+	return new_line;
 }
 
-static void	load_map(t_game *game, char *content)
+static void load_map(t_game *game, char **lines, int start_index)
 {
-	char	**lines;
-	int		i;
+    int i;
+    int max_length;
+    int length;
+	char *modified_line;
 
-	i = 0;
-
-	lines = ft_split(content, '\n');
-	game->map.height = 0;
-	while (lines[game->map.height])
-		game->map.height++;
-	game->map.width = ft_strlen(lines[0]);
-	game->map.grid = malloc(sizeof(char *) * (game->map.height + 1));
-	if (!game->map.grid)
-		exit_game(game, "Error: Unable to allocate memory for map grid.");
-	while (i < game->map.height)
-	{
-		game->map.grid[i] = ft_strdup(lines[i]);
-		if (!game->map.grid[i])
-			exit_game(game, "Error: Unable to allocate memory for map row.");
-		i++;
-	}
-	game->map.grid[game->map.height] = NULL;
-	clean_split(lines);
+    while (lines[start_index + game->map.height] != NULL)
+        game->map.height++;
+    max_length = 0;
+    i = start_index;
+    while (i < start_index + game->map.height)
+    {
+        length = ft_strlen(lines[i]);
+        if (length > max_length)
+            max_length = length;
+        i++;
+    }
+    game->map.width = max_length;
+    game->map.grid = malloc(sizeof(char *) * (game->map.height + 1));
+    if (!game->map.grid)
+        exit_game(game, "Error: Unable to allocate memory for map grid.");
+    i = 0;
+    while (i < game->map.height)
+    {
+        modified_line = replace_spaces_with_one(lines[start_index + i], game->map.width);
+        if (!modified_line)
+            exit_game(game, "Error: Unable to allocate memory for modified map row.");
+        game->map.grid[i] = modified_line;
+        i++;
+    }
+    game->map.grid[game->map.height] = NULL;
 }
 
 int	validate_map(t_game *game)
@@ -86,14 +110,19 @@ int	validate_map(t_game *game)
 	player_y = -1;
 	if (check_map_grid(game, &player_x, &player_y) == 0)
 		return (0);
-	exit(0);
 	if (player_x == -1 || player_y == -1)
 		exit_game(game, "Error: Player not found in the map.");
-	if (!is_player_surrounded(&game->map, player_x, player_y))
-		exit_game(game, "Error: Player is surrounded by walls.");
 	return (1);
 }
-
+void print_map(t_game *game)
+{
+	int i = 0;
+	while (i < game->map.height)
+	{
+		printf("%s\n", game->map.grid[i]);
+		i++;
+	}
+}
 void	parse_map(t_game *game, const char *filename)
 {
 	char	*content;
@@ -105,18 +134,19 @@ void	parse_map(t_game *game, const char *filename)
 		exit_game(game, "Error: Unable to read map file.");
 	lines = ft_split(content, '\n');
 	i = 0;
-	while (lines[i] != NULL)	
+	while (lines[i] != NULL)
 	{
-		if(game->control_flags == 1)
+		if (game->control_flags == 1)
 			break;
 		parse_textures(game, lines[i]);
 		i++;
 	}
-	load_map(game, lines[i]);
+	load_map(game, lines, i);
+	print_map(game);
 	if (validate_map(game) == 0)
 		exit_game(game, "Error: Invalid map.");
 	if (game->player.flag_player != 1)
 		exit_game(game, "Error: multiple players.");
 	free(content);
+	clean_split(lines);
 }
-

@@ -12,20 +12,10 @@
 
 #include "../include/cub3d.h"
 
-int	is_player_surrounded(t_map *map, int player_x, int player_y)
-{
-	if (map->grid[player_y - 1][player_x] != '1' ||
-		map->grid[player_y + 1][player_x] != '1' ||
-		map->grid[player_y][player_x - 1] != '1' ||
-		map->grid[player_y][player_x + 1] != '1')
-		return (1);
-	return (0);
-}
-
 int	is_valid_char(char c)
 {
 	return (c == '1' || c == '0' || c == 'N' || c == 'S'
-		|| c == 'W' || c == 'E' || c == ' ');
+		|| c == 'W' || c == 'E' || c == ' ' || c == '\n');
 }
 
 int	is_border(int i, int j, t_map *map)
@@ -45,7 +35,10 @@ int	check_map_grid(t_game *game, int *player_x, int *player_y)
 		while (j < game->map.width)
 		{
 			if (!is_valid_char(game->map.grid[i][j]))
+			{
+				printf("Invalid character found: %c at [%d][%d]\n", game->map.grid[i][j], i, j);
 				return (0);
+			}
 			if (is_border(i, j, &game->map) && game->map.grid[i][j] != '1')
 				return (0);
 			if (game->map.grid[i][j] == 'N' || game->map.grid[i][j] == 'S' ||
@@ -61,3 +54,4 @@ int	check_map_grid(t_game *game, int *player_x, int *player_y)
 	}
 	return (1);
 }
+
