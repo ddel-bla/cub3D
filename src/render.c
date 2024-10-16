@@ -87,8 +87,8 @@ void render_frame(t_game *game)
                 map_y += step_y;
                 side = 1;
             }
-            if (game->map.grid[map_y][map_x] == '1') // Si golpea una pared
-                hit = 1;
+            /* if (game->map.grid[map_y][map_x] == '1') // Si golpea una pared
+                hit = 1; */
         }
 
         // Calcular la distancia perpendicular desde el jugador a la pared

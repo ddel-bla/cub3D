@@ -30,6 +30,7 @@ typedef struct s_player {
     double  plane_y; // Plano de la cámara en el eje Y
     double  move_speed;
     double  rot_speed;
+    int     flag_player;
 }   t_player;
 
 // Estructura para el manejo del mapa
@@ -39,12 +40,25 @@ typedef struct s_map {
     char    **grid; // Representación del mapa en una matriz de chars
 }   t_map;
 
+typedef struct s_textures
+{
+    char    *north_texture;
+    char    *south_texture;
+    char    *west_texture;
+    char    *east_texture;
+    int     floor_color;
+    int     ceiling_color;
+}   t_textures;
+
+
 // Estructura principal del juego
 typedef struct s_game {
     t_window    window;
     t_player    player;
     t_map       map;
     int         **textures; // Array bidimensional para almacenar las texturas
+    t_textures  texture_paths;
+    int         control_flags;
 }   t_game;
 
 #endif

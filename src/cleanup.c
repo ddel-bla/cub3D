@@ -40,16 +40,36 @@ void free_window(t_game *game)
 // Función principal para liberar todos los recursos y salir del juego
 void exit_game(t_game *game, const char *msg)
 {
+    int i = 0;
     if (msg)
-        printf("%s\n", msg); // Imprime el mensaje de error si existe
+        printf("%s\n", msg);
 
-    // Llamar a las funciones de limpieza
-    free_textures(game);
+    if (game->textures)
+	{
+        while (i < 4)
+        {
+            if (game->textures[i])
+                mlx_destroy_image(game->window.mlx_ptr, game->textures[i]);
+            i++;
+        }
+        free(game->textures);
+    }
     free_map(game);
     free_window(game);
+    if (msg)
+        exit(EXIT_FAILURE);
+    else
+        exit(EXIT_SUCCESS);
+}
+void	clean_split(char **split)
+{
+	int	i;
 
-    // Si es necesario, también podrías liberar otras cosas aquí...
-
-    // Salir del programa
-    exit(msg ? EXIT_FAILURE : EXIT_SUCCESS);
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }

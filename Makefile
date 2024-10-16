@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Fractolmake                                        :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+         #
+#    By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 20:24:57 by ddel-bla          #+#    #+#              #
-#    Updated: 2024/09/01 19:43:50 by ddel-bla         ###   ########.fr        #
+#    Updated: 2024/10/07 13:04:31 by cfeliz-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ RESET   = \033[0m
 SRCS    =  ./src/main.c \
            ./src/init.c \
            ./src/parse_map.c \
+		   ./src/parse_aux.c \
+		   ./src/parse_utils.c \
            ./src/render.c \
            ./src/events.c \
            ./src/movement.c \
@@ -34,7 +36,7 @@ NAME    = cub3d
 CC      = gcc
 INCLUDE = -L ./lib/libft -lft -L ./lib/minilibx -lmlx_Linux -lX11 -lXext -lm
 DEBUG   = -fsanitize=address
-CFLAGS  = -Wall -Werror -Wextra -I ./include
+CFLAGS  = -Wall -Werror -Wextra -g3 -fsanitize=address
 
 # Clean command
 RM      = rm -f
