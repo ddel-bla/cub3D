@@ -114,15 +114,7 @@ int	validate_map(t_game *game)
 		exit_game(game, "Error: Player not found in the map.");
 	return (1);
 }
-void print_map(t_game *game)
-{
-	int i = 0;
-	while (i < game->map.height)
-	{
-		printf("%s\n", game->map.grid[i]);
-		i++;
-	}
-}
+
 void	parse_map(t_game *game, const char *filename)
 {
 	char	*content;
@@ -142,7 +134,6 @@ void	parse_map(t_game *game, const char *filename)
 		i++;
 	}
 	load_map(game, lines, i);
-	print_map(game);
 	if (validate_map(game) == 0)
 		exit_game(game, "Error: Invalid map.");
 	if (game->player.flag_player != 1)
