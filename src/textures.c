@@ -44,17 +44,61 @@ static void	load_texture(t_game *g, int *texture, char *path)
 void	load_textures(t_game *g)
 {
 	fprintf(stderr, "Loading textures...\n");
-	load_texture(g, g->no, "assets/textures/1.xpm");
-	load_texture(g, g->so, "assets/textures/2.xpm");
-	load_texture(g, g->ea, "assets/textures/3.xpm");
-	load_texture(g, g->we, "assets/textures/4.xpm");
+	load_texture(g, g->no, g->texture_paths.north_texture);
+	load_texture(g, g->so, g->texture_paths.south_texture);
+	load_texture(g, g->ea, g->texture_paths.east_texture);
+	load_texture(g, g->we, g->texture_paths.west_texture);
 	fprintf(stderr, "All textures loaded successfully.\n");
 }
-
-void	free_textures(t_game *g)
+int ft_isspace(int c)
 {
-	free(g->no);
-	free(g->so);
-	free(g->ea);
-	free(g->we);
+    return (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\v' || c == '\f');
+}
+
+int parse_color(char *str)
+{
+	int r;
+	int g;
+	int b;
+
+	r = ft_atoi(str);
+	while (ft_isdigit(*str))
+		str++;
+	if (*str != ',')
+		return (-1);
+	str++;
+	g = ft_atoi(str);
+	while (ft_isdigit(*str))
+		str++;
+	if (*str != ',')
+		return (-1);
+	str++;
+	b = ft_atoi(str);
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+		return (-1);
+	return (r << 16 | g << 8 | b);
+}
+
+void	parse_textures(t_game *game, char *line)
+{
+	printf("%s\n", line);
+	if (ft_strncmp(line, "NO ", 3) == 0)
+		game->texture_paths.north_texture = ft_strdup(line + 3);
+	else if (ft_strncmp(line, "SO ", 3) == 0)
+		game->texture_paths.south_texture = ft_strdup(line + 3);
+	else if (ft_strncmp(line, "WE ", 3) == 0)
+		game->texture_paths.west_texture = ft_strdup(line + 3);
+	else if (ft_strncmp(line, "EA ", 3) == 0)
+		game->texture_paths.east_texture = ft_strdup(line + 3);
+	else if (ft_strncmp(line, "F ", 2) == 0)
+		game->floor = parse_color(line + 2);
+	else if (ft_strncmp(line, "C ", 2) == 0)
+    {
+		game->ceiling = parse_color(line + 2);
+		if(game->ceiling == -1 || game->floor == -1)
+			exit_game(game, "Error: Invalid color in .cub file.");
+        game->control_flags = 1;
+    }
+	else
+		exit_game(game, "Error: Invalid identifier in .cub file.");
 }

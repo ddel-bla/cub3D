@@ -12,27 +12,30 @@
 
 #include "../include/cub3d.h"
 
-void	init_game(t_game *g)
+void init_game(t_game *game)
 {
-	g->win.mlx_p = NULL;
-	g->win.win_p = NULL;
-	g->win.img.img_ptr = NULL;
-	g->win.img.data = NULL;
-	g->pla.pos_x = 3.5;
-	g->pla.pos_y = 3.5;
-	g->pla.dir_x = 0.0;
-	g->pla.dir_y = -1.0;
-	g->pla.plane_x = 0.66;
-	g->pla.plane_y = 0.0;
-	g->pla.move_speed = 0.05;
-	g->pla.rot_speed = 0.03;
-	g->map.grid = NULL;
-	g->ceiling = 0x87CEEB;
-	g->floor = 0x3F3F3F;
-	g->no = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
-	g->so = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
-	g->ea = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
-	g->we = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
+    game->win.mlx_p = NULL;
+    game->win.win_p = NULL;
+    game->win.img.img_ptr = NULL;
+    game->win.img.data = NULL;
+    game->pla.pos_x = 0;
+    game->pla.pos_y = 0;
+    game->pla.dir_x = 0.0;
+    game->pla.dir_y = 1.0;
+    game->pla.plane_x = 0;
+    game->pla.plane_y = 0.66;
+    game->pla.move_speed = 0.05;
+    game->pla.rot_speed = 0.03;
+    game->pla.flag_player = 0;
+    game->map.grid = NULL;
+    game->ceiling = 0;
+	game->floor = 0;
+    game->no = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
+	game->so = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
+	game->ea = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
+	game->we = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
+    ft_bzero(&game->texture_paths, sizeof(t_textures));
+    ft_memset(&game->map, 0, sizeof(t_map));
 }
 
 void	init_window(t_game *g)

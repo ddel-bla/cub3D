@@ -50,3 +50,23 @@ void	exit_game(t_game *g, const char *msg)
 	printf("%s\n", msg);
 	exit(EXIT_FAILURE);
 }
+void	free_textures(t_game *g)
+{
+	free(g->no);
+	free(g->so);
+	free(g->ea);
+	free(g->we);
+}
+
+void	clean_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}

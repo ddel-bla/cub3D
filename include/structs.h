@@ -27,25 +27,24 @@ typedef struct s_img
 	int		height;
 }	t_img;
 
-typedef struct s_window
-{
-	void	*mlx_p;
-	void	*win_p;
-	t_img	img;
-}	t_window;
+typedef struct s_window {
+    void    *mlx_p;
+    void    *win_p;
+    t_img   img;
+}   t_window;
 
 // Estructura para representar al jugador
-typedef struct s_player
-{
-	double	pos_x;         // Posición actual del jugador en el eje X
-	double	pos_y;         // Posición actual del jugador en el eje Y
-	double	dir_x;         // Dirección en el eje X (hacia dónde mira el jugador en X)
-	double	dir_y;         // Dirección en el eje Y (hacia dónde mira el jugador en Y)
-	double	plane_x;       // Componente X del plano de la cámara (determina el campo de visión en X)
-	double	plane_y;       // Componente Y del plano de la cámara (determina el campo de visión en Y)
-	double	move_speed;    // Velocidad de movimiento del jugador
-	double	rot_speed;     // Velocidad de rotación del jugador (para girar a la izquierda o derecha)
-}	t_player;
+typedef struct s_player {
+    double  pos_x;  // Posición X
+    double  pos_y;  // Posición Y
+    double  dir_x;  // Dirección en el eje X
+    double  dir_y;  // Dirección en el eje Y
+    double  plane_x; // Plano de la cámara en el eje X
+    double  plane_y; // Plano de la cámara en el eje Y
+    double  move_speed;
+    double  rot_speed;
+    int     flag_player;
+}   t_player;
 
 // Estructura para el manejo del mapa
 typedef struct s_map
@@ -55,18 +54,28 @@ typedef struct s_map
 	char	**grid;
 }	t_map;
 
-// Estructura principal del juego
-typedef struct s_game
+typedef struct s_textures
 {
-	t_window	win;
-	t_player	pla;
-	t_map		map;
-	int			floor;
+    char    *north_texture;
+    char    *south_texture;
+    char    *west_texture;
+    char    *east_texture;
+}   t_textures;
+
+
+// Estructura principal del juego
+typedef struct s_game {
+    t_window    win;
+    t_player    pla;
+    t_map       map;
+    int			floor;
 	int			ceiling;
 	int			*no;
 	int			*so;
 	int			*ea;
 	int			*we;
+	t_textures	texture_paths;
+	int         control_flags;
 }	t_game;
 //---------
 typedef struct s_ray

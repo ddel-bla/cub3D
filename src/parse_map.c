@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 09:32:46 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/15 18:20:56 by ddel-bla         ###   ########.fr       */
+/*   Created: 2024/10/11 10:35:17 by cfeliz-r          #+#    #+#             */
+/*   Updated: 2024/10/15 15:53:25 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-// Función auxiliar para leer el contenido del archivo en una cadena
 static char	*read_file(const char *filename)
 {
 	int		fd;
@@ -39,53 +38,111 @@ static char	*read_file(const char *filename)
 	return (content);
 }
 
-static void	clean_split(char **split)
+static char	*replace_spaces_with_one(const char *line, int target_length)
 {
-	int	i;
+	char	*new_line;
+	int		i;
 
+	new_line = malloc(target_length + 1);
+	if (!new_line)
+		return (NULL);
 	i = 0;
-	while (split[i])
+	while (i < target_length)
 	{
-		free(split[i]);
+		if (i < ft_strlen(line))
+		{
+			if (ft_isspace(line[i]))
+				new_line[i] = '1';
+			else
+				new_line[i] = line[i];
+		}
+		else
+		{
+			new_line[i] = '1';
+		}
 		i++;
 	}
-	free(split);
+	new_line[target_length] = '\0';
+
+	return (new_line);
 }
 
-// Función para cargar el contenido en la estructura del mapa
-static void	load_map(t_game *g, char *content)
+static void load_map(t_game *game, char **lines, int start_index)
 {
+    int i;
+    int max_length;
+    int length;
+	char *modified_line;
+
+    while (lines[start_index + game->map.height] != NULL)
+        game->map.height++;
+    max_length = 0;
+    i = start_index;
+    while (i < start_index + game->map.height)
+    {
+        length = ft_strlen(lines[i]);
+        if (length > max_length)
+            max_length = length;
+        i++;
+    }
+    game->map.width = max_length;
+    game->map.grid = malloc(sizeof(char *) * (game->map.height + 1));
+    if (!game->map.grid)
+        exit_game(game, "Error: Unable to allocate memory for map grid.");
+    i = 0;
+    while (i < game->map.height)
+    {
+        modified_line = replace_spaces_with_one(lines[start_index + i], game->map.width);
+        if (!modified_line)
+            exit_game(game, "Error: Unable to allocate memory for modified map row.");
+        game->map.grid[i] = modified_line;
+        i++;
+    }
+    game->map.grid[game->map.height] = NULL;
+}
+
+int	validate_map(t_game *game)
+{
+	int	player_x;
+	int	player_y;
+
+	player_x = -1;
+	player_y = -1;
+	if (check_map_grid(game, &player_x, &player_y) == 0)
+		return (0);
+	if (player_x == -1 || player_y == -1)
+		exit_game(game, "Error: Player not found in the map.");
+	return (1);
+}
+
+void	parse_map(t_game *game, const char *filename)
+{
+	char	*content;
 	char	**lines;
 	int		i;
 
-	i = 0;
-	lines = ft_split(content, '\n');
-	g->map.height = 0;
-	while (lines[g->map.height])
-		g->map.height++;
-	g->map.width = ft_strlen(lines[0]);
-	g->map.grid = (char **)malloc(sizeof(char *) * (g->map.height + 1));
-	if (!g->map.grid)
-		exit_game(g, "Error: Unable to allocate memory for map grid.");
-	while (i < g->map.height)
-	{
-		g->map.grid[i] = ft_strdup(lines[i]);
-		if (!g->map.grid[i])
-			exit_game(g, "Error: Unable to allocate memory for map row.");
-		i++;
-	}
-	g->map.grid[g->map.height] = NULL;
-	clean_split(lines);
-}
-
-// Función principal para parsear el archivo del mapa
-void	parse_map(t_game *g, const char *filename)
-{
-	char	*content;
-
 	content = read_file(filename);
 	if (!content)
-		exit_game(g, "Error: Unable to read map file.");
-	load_map(g, content);
+		exit_game(game, "Error: Unable to read map file.");
+	lines = ft_split(content, '\n');
+	i = 0;
+	while (lines[i] != NULL)
+	{
+		if (game->control_flags == 1)
+			break;
+		if(ft_strlen(lines[i]) == 0)
+		{
+			i++;
+			continue;
+		}
+		parse_textures(game, lines[i]);
+		i++;
+	}
+	load_map(game, lines, i);
+	if (validate_map(game) == 0)
+		exit_game(game, "Error: Invalid map.");
+	if (game->pla.flag_player != 1)
+		exit_game(game, "Error: multiple players.");
 	free(content);
+	clean_split(lines);
 }

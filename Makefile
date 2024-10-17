@@ -23,6 +23,8 @@ SRCS    =  ./src/main.c \
            ./src/render_dda.c \
 		   ./src/render_ray.c \
            ./src/render_walls.c \
+		   ./src/parse_aux.c \
+		   ./src/parse_utils.c \
            ./src/render.c \
            ./src/events.c \
            ./src/movement.c \
@@ -37,7 +39,7 @@ NAME    = cub3d
 CC      = gcc
 INCLUDE = -L ./lib/libft -lft -L ./lib/minilibx -lmlx_Linux -lX11 -lXext -lm
 DEBUG   = -fsanitize=address
-CFLAGS  = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS  = -Wall -Werror -Wextra -g3 -fsanitize=address
 
 # Clean command
 RM      = rm -f
