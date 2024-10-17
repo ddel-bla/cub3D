@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:14:58 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/16 20:32:20 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/17 09:48:32 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static void	load_texture(t_game *g, int *texture, char *path)
 void	load_textures(t_game *g)
 {
 	fprintf(stderr, "Loading textures...\n");
-	load_texture(g, g->no, "assets/textures/4.xpm");
-	load_texture(g, g->so, "assets/textures/4.xpm");
-	load_texture(g, g->ea, "assets/textures/4.xpm");
-	load_texture(g, g->we, "assets/textures/4.xpm");
+	load_texture(g, g->no, "textures/wolfenstein/grey_stone.xpm");
+	load_texture(g, g->so, "textures/wolfenstein/grey_stone.xpm");
+	load_texture(g, g->ea, "textures/wolfenstein/grey_stone.xpm");
+	load_texture(g, g->we, "textures/wolfenstein/grey_stone.xpm");	
 	fprintf(stderr, "All textures loaded successfully.\n");
 }
 

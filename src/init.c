@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:10:32 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/16 21:42:30 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/17 02:40:46 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_game(t_game *g)
 	g->win.img.img_ptr = NULL;
 	g->win.img.data = NULL;
 	g->pla.pos_x = 1.0;
-	g->pla.pos_y = 0.0;
+	g->pla.pos_y = 2.0;
 	g->pla.dir_x = 0.0;
 	g->pla.dir_y = -1.0;
 	g->pla.plane_x = 0.66;
