@@ -6,11 +6,23 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:21:04 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/17 12:18:40 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:31:13 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+double	get_wall_x(t_game *g, t_ray *r)
+{
+	double	wall_x;
+
+	if (r->side == 0)
+		wall_x = g->pla.pos_y + r->perp_w_d * r->ray_dir_y;
+	else
+		wall_x = g->pla.pos_x + r->perp_w_d * r->ray_dir_x;
+	wall_x -= floor(wall_x);
+	return (wall_x);
+}
 
 int	get_wall_color(t_game *g, t_ray *r, t_wall *wall, int y)
 {
@@ -20,11 +32,7 @@ int	get_wall_color(t_game *g, t_ray *r, t_wall *wall, int y)
 	int		*texture;
 
 	texture = select_texture(g, r);
-	if (r->side == 0)
-		wall_x = g->pla.pos_y + r->perp_w_d * r->ray_dir_y;
-	else
-		wall_x = g->pla.pos_x + r->perp_w_d * r->ray_dir_x;
-	wall_x -= floor(wall_x);
+	wall_x = get_wall_x(g, r);
 	tex_x = (int)(wall_x * (double)TEX_W);
 	if ((r->side == 0 && r->ray_dir_x > 0)
 		|| (r->side == 1 && r->ray_dir_y < 0))
