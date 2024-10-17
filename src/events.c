@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 09:29:15 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/12 09:31:06 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/17 01:00:09 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ int	handle_keypress(int keycode, t_game *g)
 		rotate_player(g, g->pla.rot_speed);
 	if (keycode == KEY_ESC)
 		exit_game(g, NULL);
+	return (0);
+}
+
+int	handle_mouse_move(int x, int y, t_game *g)
+{
+	double			rotation_angle;
+
+	(void)y;
+	rotation_angle = (x - WIN_W / 2) * (g->pla.rot_speed / 100);
+	rotate_player(g, rotation_angle);
 	return (0);
 }
 

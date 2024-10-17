@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:21:04 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/16 17:31:03 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:57:54 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,4 @@ void	render_frame(t_game *g)
 		draw_walls(g, x, &r, &wall);
 		x++;
 	}
-	mlx_put_image_to_window(g->win.mlx_p, g->win.win_p, g->win.img.img_ptr,
-		0, 0);
 }

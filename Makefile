@@ -6,7 +6,7 @@
 #    By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 20:24:57 by ddel-bla          #+#    #+#              #
-#    Updated: 2024/10/15 18:43:22 by ddel-bla         ###   ########.fr        #
+#    Updated: 2024/10/17 00:03:04 by ddel-bla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRCS    =  ./src/main.c \
            ./src/events.c \
            ./src/movement.c \
            ./src/textures.c \
-           ./src/cleanup.c
+           ./src/cleanup.c \
+		   ./src/draw_minimap.c
 OBJS    = $(SRCS:.c=.o)
 
 # Executable name

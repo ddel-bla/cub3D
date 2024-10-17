@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:56:18 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/16 11:13:27 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/17 01:04:53 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,19 @@
 # define WIN_H 640
 # define TEX_W 64
 # define TEX_H 64
+# define SCALE 10
 
 // Prototipos de funciones en cleanup.c
 void	free_map(t_game *g);
 void	free_window(t_game *g);
 void	exit_game(t_game *g, const char *msg);
 
+// Prototipos de funciones en draw_minimap.c
+void	draw_minimap(t_game *g);
+
 // Prototipos de funciones en events.c
 int		handle_keypress(int keycode, t_game *g);
-int		handle_keyrelease(int keycode, t_game *g);
+int		handle_mouse_move(int x, int y, t_game *g);
 int		close_window(t_game *g);
 
 // Prototipos de funciones en init.c
