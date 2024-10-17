@@ -136,7 +136,7 @@ void	parse_map(t_game *game, const char *filename)
 	load_map(game, lines, i);
 	if (validate_map(game) == 0)
 		exit_game(game, "Error: Invalid map.");
-	if (game->player.flag_player != 1)
+	if (game->pla.flag_player != 1)
 		exit_game(game, "Error: multiple players.");
 	free(content);
 	clean_split(lines);

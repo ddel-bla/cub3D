@@ -12,9 +12,9 @@ int handle_keypress(int keycode, t_game *game)
     if (keycode == KEY_D) // Mover hacia la derecha
         strafe_player(game, 1);
     if (keycode == KEY_LEFT) // Rotar hacia la izquierda
-        rotate_player(game, -game->player.rot_speed);
+        rotate_player(game, -game->pla.rot_speed);
     if (keycode == KEY_RIGHT) // Rotar hacia la derecha
-        rotate_player(game, game->player.rot_speed);
+        rotate_player(game, game->pla.rot_speed);
     if (keycode == KEY_ESC) // Salir del juego
         exit_game(game, NULL);
     return (0);

@@ -1,20 +1,5 @@
 #include "../include/cub3d.h"
 
-// Función para liberar la memoria de las texturas
-// void free_textures(t_game *game)
-// {
-//     if (game->textures)
-//     {
-//         for (int i = 0; i < 4; i++) // Asumiendo que tienes 4 texturas
-//         {
-//             if (game->textures[i])
-//                 free(game->textures[i]);
-//         }
-//         free(game->textures);
-//     }
-// }
-
-// Función para liberar la memoria del mapa
 void free_map(t_game *game)
 {
     if (game->map.grid)
@@ -28,32 +13,27 @@ void free_map(t_game *game)
     }
 }
 
-// Función para liberar la imagen y la ventana de MiniLibX
 void free_window(t_game *game)
 {
-    if (game->window.img.img_ptr)
-        mlx_destroy_image(game->window.mlx_ptr, game->window.img.img_ptr);
-    if (game->window.win_ptr)
-        mlx_destroy_window(game->window.mlx_ptr, game->window.win_ptr);
+    if (game->win.img.img_ptr)
+        mlx_destroy_image(game->win.mlx_p, game->win.img.img_ptr);
+    if (game->win.win_p)
+        mlx_destroy_window(game->win.mlx_p, game->win.win_p);
 }
 
-// Función principal para liberar todos los recursos y salir del juego
+void	free_textures(t_game *g)
+{
+	free(g->no);
+	free(g->so);
+	free(g->ea);
+	free(g->we);
+}
+
 void exit_game(t_game *game, const char *msg)
 {
-    int i = 0;
     if (msg)
         printf("%s\n", msg);
-
-    if (game->textures)
-	{
-        while (i < 4)
-        {
-            if (game->textures[i])
-                mlx_destroy_image(game->window.mlx_ptr, game->textures[i]);
-            i++;
-        }
-        free(game->textures);
-    }
+    free_textures(game);
     free_map(game);
     free_window(game);
     if (msg)
@@ -61,6 +41,7 @@ void exit_game(t_game *game, const char *msg)
     else
         exit(EXIT_SUCCESS);
 }
+
 void	clean_split(char **split)
 {
 	int	i;

@@ -46,13 +46,11 @@ int	main(int argc, char **argv)
     init_game(&game);
     parse_map(&game, argv[1]);
     init_window(&game);
-    load_textures(&game);
-    mlx_hook(game.window.win_ptr, 2, 1L<<0, handle_keypress, &game);
-    mlx_hook(game.window.win_ptr, 3, 1L<<1, handle_keyrelease, &game);
-    mlx_hook(game.window.win_ptr, 17, 1L<<17, close_window, &game);
-    mlx_loop_hook(game.window.mlx_ptr, render_wrapper, &game);
-    mlx_loop(game.window.mlx_ptr);
-    exit_game(&game, NULL);
-
-    return (EXIT_SUCCESS);
+	load_textures(&game);
+	mlx_hook(game.win.win_p, 2, 1L << 0, handle_keypress, &game);
+	mlx_hook(game.win.win_p, 17, 1L << 17, close_window, &game);
+	render_frame(&game);
+	mlx_loop(game.win.mlx_p);
+	exit_game(&game, NULL);
+	return (EXIT_SUCCESS);
 }

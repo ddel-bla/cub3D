@@ -13,10 +13,10 @@
 #include "../lib/libft/libft.h"
 
 // Definiciones de macros
-#define WIN_WIDTH 800
-#define WIN_HEIGHT 600
-#define TEX_WIDTH 32
-#define TEX_HEIGHT 32
+# define WIN_W 640
+# define WIN_H 640
+# define TEX_W 64
+# define TEX_H 64
 
 // Prototipos de funciones en init.c
 void    init_game(t_game *game);

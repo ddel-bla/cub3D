@@ -15,8 +15,8 @@ typedef struct s_img {
 }   t_img;
 
 typedef struct s_window {
-    void    *mlx_ptr;
-    void    *win_ptr;
+    void    *mlx_p;
+    void    *win_p;
     t_img   img;
 }   t_window;
 
@@ -46,17 +46,20 @@ typedef struct s_textures
     char    *south_texture;
     char    *west_texture;
     char    *east_texture;
-    int     floor_color;
-    int     ceiling_color;
 }   t_textures;
 
 
 // Estructura principal del juego
 typedef struct s_game {
-    t_window    window;
-    t_player    player;
+    t_window    win;
+    t_player    pla;
     t_map       map;
-    int         **textures; // Array bidimensional para almacenar las texturas
+    int			floor;
+	int			ceiling;
+	int			*no;
+	int			*so;
+	int			*ea;
+	int			*we;
     t_textures  texture_paths;
     int         control_flags;
 }   t_game;
