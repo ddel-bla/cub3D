@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:56:18 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/17 01:04:53 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:06:28 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,5 @@ void	render_frame(t_game *g);
 // Prototipos de funciones en textures.c
 void	load_textures(t_game *g);
 void	free_textures(t_game *g);
-
+int		*select_texture(t_game *g, t_ray *r);
 #endif

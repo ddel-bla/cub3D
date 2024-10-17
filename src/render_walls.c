@@ -6,22 +6,11 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:21:04 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/16 17:31:51 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:18:40 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-int	*select_texture(t_game *g, t_ray *r)
-{
-	if (r->side == 0 && r->ray_dir_x > 0)
-		return (g->ea);
-	else if (r->side == 0 && r->ray_dir_x < 0)
-		return (g->we);
-	else if (r->side == 1 && r->ray_dir_y > 0)
-		return (g->so);
-	return (g->no);
-}
 
 int	get_wall_color(t_game *g, t_ray *r, t_wall *wall, int y)
 {
@@ -49,6 +38,8 @@ int	get_wall_color(t_game *g, t_ray *r, t_wall *wall, int y)
 		tex_y = 0;
 	else if (tex_y >= TEX_H)
 		tex_y = TEX_H - 1;
+	if (r->perp_w_d < 1)
+		tex_y *= 1 / r->perp_w_d;
 	return (texture[TEX_W * tex_y + tex_x]);
 }
 
@@ -63,14 +54,12 @@ void	draw_walls(t_game *g, int x, t_ray *r, t_wall *wall)
 		g->win.img.data[y * WIN_W + x] = g->ceiling;
 		y++;
 	}
-	y = wall->draw_start;
 	while (y <= wall->draw_end)
 	{
 		color = get_wall_color(g, r, wall, y);
 		g->win.img.data[y * WIN_W + x] = color;
 		y++;
 	}
-	y = wall->draw_end + 1;
 	while (y < WIN_H)
 	{
 		g->win.img.data[y * WIN_W + x] = g->floor;

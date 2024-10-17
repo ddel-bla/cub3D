@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:14:58 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/17 09:48:32 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:06:37 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,24 @@ static void	load_texture(t_game *g, int *texture, char *path)
 	mlx_destroy_image(g->win.mlx_p, i.img_ptr);
 }
 
+int	*select_texture(t_game *g, t_ray *r)
+{
+	if (r->side == 0 && r->ray_dir_x > 0)
+		return (g->ea);
+	else if (r->side == 0 && r->ray_dir_x < 0)
+		return (g->we);
+	else if (r->side == 1 && r->ray_dir_y > 0)
+		return (g->so);
+	return (g->no);
+}
+
 void	load_textures(t_game *g)
 {
 	fprintf(stderr, "Loading textures...\n");
 	load_texture(g, g->no, "textures/wolfenstein/grey_stone.xpm");
 	load_texture(g, g->so, "textures/wolfenstein/grey_stone.xpm");
 	load_texture(g, g->ea, "textures/wolfenstein/grey_stone.xpm");
-	load_texture(g, g->we, "textures/wolfenstein/grey_stone.xpm");	
+	load_texture(g, g->we, "textures/wolfenstein/grey_stone.xpm");
 	fprintf(stderr, "All textures loaded successfully.\n");
 }
 
