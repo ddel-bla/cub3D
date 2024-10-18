@@ -6,7 +6,7 @@
 #    By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 20:24:57 by ddel-bla          #+#    #+#              #
-#    Updated: 2024/10/18 13:01:33 by cfeliz-r         ###   ########.fr        #
+#    Updated: 2024/10/18 15:47:55 by cfeliz-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,11 +52,13 @@ RM      = rm -f
 
 # Main rule to link object files into the final executable
 $(NAME): $(OBJS)
+	make -C ./lib/libft
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(INCLUDE)
 	@echo "$(BLUE)cub3d - Compiled!$(RESET)"
 
 # Default rule
 all: $(NAME)
+
 
 # Debug rule with address sanitizer
 debug: CFLAGS += $(DEBUG)
@@ -70,6 +72,7 @@ clean:
 # Clean object and executable files
 fclean: clean
 	$(RM) $(NAME)
+	@make -C ./lib/libft fclean
 	@echo "$(BLUE)cub3d - Executable files cleaned!$(RESET)"
 
 # Recompile everything
