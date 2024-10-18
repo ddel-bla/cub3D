@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cfeliz-r < cfeliz-r@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:14:58 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/18 16:57:47 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/18 20:59:38 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,23 @@ int	parse_color(char *str)
 	int	g;
 	int	b;
 
+	if (!ft_isdigit(*str))
+		return (-1);
 	r = ft_atoi(str);
 	while (ft_isdigit(*str))
 		str++;
-	if (*str != ',')
+	if (*str++ != ',' || !ft_isdigit(*str))
 		return (-1);
-	str++;
 	g = ft_atoi(str);
 	while (ft_isdigit(*str))
 		str++;
-	if (*str != ',')
+	if (*str++ != ',' || !ft_isdigit(*str))
 		return (-1);
-	str++;
 	b = ft_atoi(str);
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+	while (ft_isdigit(*str))
+		str++;
+	if (*str != '\0' || r < 0 || r > 255
+		|| g < 0 || g > 255 || b < 0 || b > 255)
 		return (-1);
 	return (r << 16 | g << 8 | b);
 }
@@ -96,14 +99,13 @@ void	parse_textures(t_game *game, char *line)
 		game->texture_paths.west_texture = ft_strdup(line + 3);
 	else if (ft_strncmp(line, "EA ", 3) == 0)
 		game->texture_paths.east_texture = ft_strdup(line + 3);
-	else if (ft_strncmp(line, "F ", 2) == 0)
-		game->floor = parse_color(line + 2);
-	else if (ft_strncmp(line, "C ", 2) == 0)
+	else if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
 	{
-		game->ceiling = parse_color(line + 2);
-		if (game->ceiling == -1 || game->floor == -1)
-			exit_game(game, "Error: Invalid color in .cub file.");
-		game->control_flags = 1;
+		if (ft_strncmp(line, "F ", 2) == 0)
+			game->floor = parse_color(line + 2);
+		else
+			game->ceiling = parse_color(line + 2);
+		game->control_flags++;
 	}
 	else
 		exit_game(game, "Error: Invalid identifier in .cub file.");

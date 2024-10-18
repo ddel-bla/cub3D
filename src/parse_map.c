@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cfeliz-r < cfeliz-r@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 10:35:17 by cfeliz-r          #+#    #+#             */
-/*   Updated: 2024/10/18 13:06:48 by cfeliz-r         ###   ########.fr       */
+/*   Updated: 2024/10/18 21:09:30 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,15 +120,12 @@ void	parse_map(t_game *game, const char *filename)
 	i = -1;
 	while (lines[++i] != NULL)
 	{
-		if (game->control_flags == 1)
+		if (game->control_flags == 2)
 			break ;
-		if (ft_strlen(lines[i]) == 0)
-		{
-			i++;
-			continue ;
-		}
 		parse_textures(game, lines[i]);
 	}
+	if(game->control_flags != 2 || game->ceiling == -1 || game->floor == -1)
+		exit_game(game, "Error: Missing identifiers in .cub file.");
 	load_map(game, lines, i);
 	if (validate_map(game) == 0)
 		exit_game(game, "Error: Invalid map.");

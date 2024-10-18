@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cfeliz-r < cfeliz-r@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:53:41 by claferna          #+#    #+#             */
-/*   Updated: 2024/10/18 15:43:14 by cfeliz-r         ###   ########.fr       */
+/*   Updated: 2024/10/18 20:57:13 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ int main(void)
 
 int	ft_isspace(int c)
 {
-	return (c == ' ' || c == '\n' || c == '\r');
+	return (c == ' ' || (c >= 9 && c <= 13));
 }
