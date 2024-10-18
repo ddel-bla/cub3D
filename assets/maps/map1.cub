@@ -3,8 +3,8 @@ SO ./assets/textures/2.xpm
 WE ./assets/textures/3.xpm
 EA ./assets/textures/4.xpm
 
-F 255,255,0
-C 225,30,0
+F 0,255,255
+C 225,255,255
 
 11111111111
 10000000001

@@ -3,39 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:10:32 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/15 18:17:17 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:46:17 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void init_game(t_game *game)
+void	init_game(t_game *game)
 {
-    game->win.mlx_p = NULL;
-    game->win.win_p = NULL;
-    game->win.img.img_ptr = NULL;
-    game->win.img.data = NULL;
-    game->pla.pos_x = 0;
-    game->pla.pos_y = 0;
-    game->pla.dir_x = 0.0;
-    game->pla.dir_y = 1.0;
-    game->pla.plane_x = 0;
-    game->pla.plane_y = 0.66;
-    game->pla.move_speed = 0.05;
-    game->pla.rot_speed = 0.03;
-    game->pla.flag_player = 0;
-    game->map.grid = NULL;
-    game->ceiling = 0;
+	game->win.mlx_p = NULL;
+	game->win.win_p = NULL;
+	game->win.img.img_ptr = NULL;
+	game->win.img.data = NULL;
+	game->pla.pos_x = 0;
+	game->pla.pos_y = 0;
+	game->pla.dir_x = 0.0;
+	game->pla.dir_y = 1.0;
+	game->pla.plane_x = 0;
+	game->pla.plane_y = 0.66;
+	game->pla.move_speed = 0.05;
+	game->pla.rot_speed = 0.03;
+	game->pla.flag_player = 0;
+	game->map.grid = NULL;
+	game->ceiling = 0;
 	game->floor = 0;
-    game->no = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
+	game->no = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
 	game->so = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
 	game->ea = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
 	game->we = (int *)malloc(sizeof(int) * (TEX_W * TEX_H));
-    ft_bzero(&game->texture_paths, sizeof(t_textures));
-    ft_memset(&game->map, 0, sizeof(t_map));
+	ft_bzero(&game->texture_paths, sizeof(t_textures));
+	ft_memset(&game->map, 0, sizeof(t_map));
 }
 
 void	init_window(t_game *g)

@@ -6,7 +6,7 @@
 /*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 10:35:17 by cfeliz-r          #+#    #+#             */
-/*   Updated: 2024/10/15 15:53:25 by cfeliz-r         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:40:19 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*read_file(const char *filename)
 	return (content);
 }
 
-static char	*replace_spaces_with_one(const char *line, int target_length)
+static char	*replace_spaces(const char *line, int target_length)
 {
 	char	*new_line;
 	int		i;
@@ -63,56 +63,48 @@ static char	*replace_spaces_with_one(const char *line, int target_length)
 		i++;
 	}
 	new_line[target_length] = '\0';
-
 	return (new_line);
 }
 
-static void load_map(t_game *game, char **lines, int start_index)
+static void	allocate_map_grid(t_game *game, char **lines, int start_index)
 {
-    int i;
-    int max_length;
-    int length;
-	char *modified_line;
+	int		i;
+	char	*modified_line;
 
-    while (lines[start_index + game->map.height] != NULL)
-        game->map.height++;
-    max_length = 0;
-    i = start_index;
-    while (i < start_index + game->map.height)
-    {
-        length = ft_strlen(lines[i]);
-        if (length > max_length)
-            max_length = length;
-        i++;
-    }
-    game->map.width = max_length;
-    game->map.grid = malloc(sizeof(char *) * (game->map.height + 1));
-    if (!game->map.grid)
-        exit_game(game, "Error: Unable to allocate memory for map grid.");
-    i = 0;
-    while (i < game->map.height)
-    {
-        modified_line = replace_spaces_with_one(lines[start_index + i], game->map.width);
-        if (!modified_line)
-            exit_game(game, "Error: Unable to allocate memory for modified map row.");
-        game->map.grid[i] = modified_line;
-        i++;
-    }
-    game->map.grid[game->map.height] = NULL;
+	game->map.grid = malloc(sizeof(char *) * (game->map.height + 1));
+	if (!game->map.grid)
+		exit_game(game, "Error: Unable to allocate memory for map grid.");
+	i = 0;
+	while (i < game->map.height)
+	{
+		modified_line = replace_spaces(lines[start_index + i], game->map.width);
+		if (!modified_line)
+			exit_game(game, "Error: allocate memory for map row.");
+		game->map.grid[i] = modified_line;
+		i++;
+	}
+	game->map.grid[game->map.height] = NULL;
 }
 
-int	validate_map(t_game *game)
+static void	load_map(t_game *game, char **lines, int start_index)
 {
-	int	player_x;
-	int	player_y;
+	int	i;
+	int	max_length;
+	int	length;
 
-	player_x = -1;
-	player_y = -1;
-	if (check_map_grid(game, &player_x, &player_y) == 0)
-		return (0);
-	if (player_x == -1 || player_y == -1)
-		exit_game(game, "Error: Player not found in the map.");
-	return (1);
+	while (lines[start_index + game->map.height] != NULL)
+		game->map.height++;
+	max_length = 0;
+	i = start_index;
+	while (i < start_index + game->map.height)
+	{
+		length = ft_strlen(lines[i]);
+		if (length > max_length)
+			max_length = length;
+		i++;
+	}
+	game->map.width = max_length;
+	allocate_map_grid(game, lines, start_index);
 }
 
 void	parse_map(t_game *game, const char *filename)
@@ -125,24 +117,21 @@ void	parse_map(t_game *game, const char *filename)
 	if (!content)
 		exit_game(game, "Error: Unable to read map file.");
 	lines = ft_split(content, '\n');
-	i = 0;
-	while (lines[i] != NULL)
+	i = -1;
+	while (lines[++i] != NULL)
 	{
 		if (game->control_flags == 1)
-			break;
-		if(ft_strlen(lines[i]) == 0)
+			break ;
+		if (ft_strlen(lines[i]) == 0)
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		parse_textures(game, lines[i]);
-		i++;
 	}
 	load_map(game, lines, i);
 	if (validate_map(game) == 0)
 		exit_game(game, "Error: Invalid map.");
-	if (game->pla.flag_player != 1)
-		exit_game(game, "Error: multiple players.");
 	free(content);
 	clean_split(lines);
 }

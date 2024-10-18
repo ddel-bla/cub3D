@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:59:06 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/12 14:23:27 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:46:25 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	exit_game(t_game *g, const char *msg)
 	printf("%s\n", msg);
 	exit(EXIT_FAILURE);
 }
+
 void	free_textures(t_game *g)
 {
 	free(g->no);

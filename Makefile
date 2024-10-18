@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+         #
+#    By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 20:24:57 by ddel-bla          #+#    #+#              #
-#    Updated: 2024/10/15 18:43:22 by ddel-bla         ###   ########.fr        #
+#    Updated: 2024/10/18 12:51:04 by cfeliz-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRCS    =  ./src/main.c \
 OBJS    = $(SRCS:.c=.o)
 
 # Executable name
-NAME    = cub3d
+NAME    = cub3D
 
 # Compiler and flags
 CC      = gcc

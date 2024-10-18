@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:14:58 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/15 18:22:41 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:44:33 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,17 @@ void	load_textures(t_game *g)
 	load_texture(g, g->we, g->texture_paths.west_texture);
 	fprintf(stderr, "All textures loaded successfully.\n");
 }
-int ft_isspace(int c)
+
+int	ft_isspace(int c)
 {
-    return (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\v' || c == '\f');
+	return (c == ' ' || c == '\n' || c == '\r');
 }
 
-int parse_color(char *str)
+int	parse_color(char *str)
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 
 	r = ft_atoi(str);
 	while (ft_isdigit(*str))
@@ -81,7 +82,6 @@ int parse_color(char *str)
 
 void	parse_textures(t_game *game, char *line)
 {
-	printf("%s\n", line);
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		game->texture_paths.north_texture = ft_strdup(line + 3);
 	else if (ft_strncmp(line, "SO ", 3) == 0)
@@ -93,12 +93,12 @@ void	parse_textures(t_game *game, char *line)
 	else if (ft_strncmp(line, "F ", 2) == 0)
 		game->floor = parse_color(line + 2);
 	else if (ft_strncmp(line, "C ", 2) == 0)
-    {
+	{
 		game->ceiling = parse_color(line + 2);
-		if(game->ceiling == -1 || game->floor == -1)
+		if (game->ceiling == -1 || game->floor == -1)
 			exit_game(game, "Error: Invalid color in .cub file.");
-        game->control_flags = 1;
-    }
+		game->control_flags = 1;
+	}
 	else
 		exit_game(game, "Error: Invalid identifier in .cub file.");
 }

@@ -52,3 +52,18 @@ int	check_map_grid(t_game *game, int *player_x, int *player_y)
 	return (1);
 }
 
+int	validate_map(t_game *game)
+{
+	int	player_x;
+	int	player_y;
+
+	player_x = -1;
+	player_y = -1;
+	if (check_map_grid(game, &player_x, &player_y) == 0)
+		return (0);
+	if (player_x == -1 || player_y == -1)
+		exit_game(game, "Error: Player not found in the map.");
+	if (game->pla.flag_player != 1)
+		exit_game(game, "Error: multiple players.");
+	return (1);
+}
