@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:44:39 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/15 18:13:16 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/16 10:09:17 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,5 @@ typedef struct s_wall
 	int	draw_start;    // Inicio del dibujo de la pared en la pantalla
 	int	draw_end;      // Fin del dibujo de la pared en la pantalla
 }	t_wall;
-
-typedef struct s_line
-{
-	int		x;
-	int		start;
-	int		end;
-	int		color;
-}	t_line;
 
 #endif

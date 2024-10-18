@@ -6,7 +6,7 @@
 #    By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 20:24:57 by ddel-bla          #+#    #+#              #
-#    Updated: 2024/10/18 12:51:04 by cfeliz-r         ###   ########.fr        #
+#    Updated: 2024/10/18 13:01:33 by cfeliz-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRCS    =  ./src/main.c \
            ./src/events.c \
            ./src/movement.c \
            ./src/textures.c \
-           ./src/cleanup.c
+           ./src/cleanup.c \
+		   ./src/draw_minimap.c
 OBJS    = $(SRCS:.c=.o)
 
 # Executable name

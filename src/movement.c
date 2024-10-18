@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:20:23 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/15 17:29:38 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:45:38 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	move_player(t_game *g, int dir)
 		g->pla.pos_y = new_pos_y;
 	if (g->map.grid[(int)g->pla.pos_y][(int)new_pos_x] != '1')
 		g->pla.pos_x = new_pos_x;
-	render_frame(g);
 }
 
 // Función para mover al jugador hacia los lados (izquierda o derecha)
@@ -39,7 +38,6 @@ void	strafe_player(t_game *g, int dir)
 		g->pla.pos_y = new_pos_y;
 	if (g->map.grid[(int)g->pla.pos_y][(int)new_pos_x] != '1')
 		g->pla.pos_x = new_pos_x;
-	render_frame(g);
 }
 
 // Función para rotar al jugador
@@ -54,5 +52,4 @@ void	rotate_player(t_game *g, double angle)
 	old_plane_x = g->pla.plane_x;
 	g->pla.plane_x = g->pla.plane_x * cos(angle) - g->pla.plane_y * sin(angle);
 	g->pla.plane_y = old_plane_x * sin(angle) + g->pla.plane_y * cos(angle);
-	render_frame(g);
 }

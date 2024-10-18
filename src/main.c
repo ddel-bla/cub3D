@@ -6,18 +6,19 @@
 /*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 10:38:36 by cfeliz-r          #+#    #+#             */
-/*   Updated: 2024/10/18 12:45:49 by cfeliz-r         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:43:55 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	render_wrapper(void *param)
+int	game_loop(t_game *g)
 {
-	t_game	*game;
-
-	game = (t_game *)param;
-	render_frame(game);
+	usleep(50);
+	render_frame(g);
+	draw_minimap(g);
+	mlx_put_image_to_window(g->win.mlx_p, g->win.win_p, g->win.img.img_ptr,
+		0, 0);
 	return (0);
 }
 
@@ -49,8 +50,9 @@ int	main(int argc, char **argv)
 	init_window(&game);
 	load_textures(&game);
 	mlx_hook(game.win.win_p, 2, 1L << 0, handle_keypress, &game);
+	mlx_hook(game.win.win_p, 6, 1L << 6, handle_mouse_move, &game);
 	mlx_hook(game.win.win_p, 17, 1L << 17, close_window, &game);
-	render_frame(&game);
+	mlx_loop_hook(game.win.mlx_p, game_loop, &game);
 	mlx_loop(game.win.mlx_p);
 	exit_game(&game, NULL);
 	return (EXIT_SUCCESS);

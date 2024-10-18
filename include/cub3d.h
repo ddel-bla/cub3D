@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:56:18 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/15 18:46:56 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:18:31 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,19 @@
 # include "../lib/libft/libft.h"
 
 // Definiciones de macros
-# define WIN_W 640
-# define WIN_H 640
+# define WIN_W 1600
+# define WIN_H 1600
 # define TEX_W 64
 # define TEX_H 64
+# define SCALE 10
 
 // Prototipos de funciones en cleanup.c
 void	free_map(t_game *g);
 void	free_window(t_game *g);
 void	exit_game(t_game *g, const char *msg);
 
+// draw_minimap.c
+void	draw_minimap(t_game *g);
 // Prototipos de funciones en events.c
 int		handle_keypress(int keycode, t_game *g);
 int		handle_keyrelease(int keycode, t_game *g);
@@ -66,11 +69,11 @@ void	calculate_wall_distance(t_player *p, t_ray *r);
 
 // Prototipos de funciones en render.c
 void	render_frame(t_game *g);
-void	draw_line(t_img *img, t_line *line);
 
 // Prototipos de funciones en textures.c
 void	load_textures(t_game *g);
 void	free_textures(t_game *g);
+int     *select_texture(t_game *g, t_ray *r);
 
 // Prototipos de funciones en init.c
 void    init_game(t_game *game);
@@ -80,6 +83,7 @@ void    init_window(t_game *game);
 int     handle_keypress(int keycode, t_game *game);
 int     handle_keyrelease(int keycode, t_game *game);
 int     close_window(t_game *game);
+int     handle_mouse_move(int x, int y, t_game *g);
 
 // Prototipos de funciones en movement.c
 void    move_player(t_game *game, int direction);
