@@ -12,43 +12,27 @@
 
 #include "../include/cub3d.h"
 
-static void	set_player_direction_ew(t_game *game, char dir)
+static void	set_player_direction(t_game *game, char dir)
 {
 	if (dir == 'W')
 	{
-		game->pla.dir_x = 0;
-		game->pla.dir_y = -1;
-		game->pla.plane_x = -0.66;
-		game->pla.plane_y = 0;
+		game->pla.dir_x = -1;
+		game->pla.dir_y = 0;
 	}
 	else if (dir == 'E')
 	{
-		game->pla.dir_x = 0;
-		game->pla.dir_y = 1;
-		game->pla.plane_x = 0.66;
-		game->pla.plane_y = 0;
-	}
-}
-
-static void	set_player_direction(t_game *game, char dir)
-{
-	if (dir == 'N')
-	{
-		game->pla.dir_x = -1;
+		game->pla.dir_x = 1;
 		game->pla.dir_y = 0;
-		game->pla.plane_x = 0;
-		game->pla.plane_y = 0.66;
+	}
+	else if (dir == 'N')
+	{
+		game->pla.dir_x = 0;
+		game->pla.dir_y = -1;
 	}
 	else if (dir == 'S')
 	{
-		game->pla.dir_x = 1;
-		game->pla.dir_y = 0;
-		game->pla.plane_x = 0;
-		game->pla.plane_y = -0.66;
-	}
-	else
-	{
-		set_player_direction_ew(game, dir);
+		game->pla.dir_x = 0;
+		game->pla.dir_y = 1;
 	}
 	game->pla.flag_player++;
 }

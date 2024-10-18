@@ -6,7 +6,7 @@
 /*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:14:58 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/18 13:00:38 by cfeliz-r         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:42:25 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,6 @@ void	load_textures(t_game *g)
 	load_texture(g, g->ea, g->texture_paths.east_texture);
 	load_texture(g, g->we, g->texture_paths.west_texture);
 	fprintf(stderr, "All textures loaded successfully.\n");
-}
-
-int	ft_isspace(int c)
-{
-	return (c == ' ' || c == '\n' || c == '\r');
 }
 
 int	parse_color(char *str)

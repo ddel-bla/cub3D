@@ -1,12 +1,13 @@
-NO ./assets/textures/1.xpm
-SO ./assets/textures/2.xpm
-WE ./assets/textures/3.xpm
-EA ./assets/textures/4.xpm
+NO ./textures/wolfenstein/blue_stone.xpm
+SO ./textures/wolfenstein/wood.xpm
+WE ./textures/wolfenstein/mossy.xpm
+EA ./textures/wolfenstein/eagle.xpm
 
 F 0,255,255
 C 225,255,255
 
 11111111111
 10000000001
-1E000000001
+1100E001001
+10000000001
 11111111111

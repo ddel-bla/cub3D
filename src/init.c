@@ -6,7 +6,7 @@
 /*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:10:32 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/18 13:00:04 by cfeliz-r         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:41:14 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	init_game(t_game *game)
 	game->pla.dir_x = 0.0;
 	game->pla.dir_y = 1.0;
 	game->pla.plane_x = 0;
-	game->pla.plane_y = 0.66;
-	game->pla.move_speed = 0.05;
+	game->pla.plane_y = 0.5;
+	game->pla.move_speed = 0.15;
 	game->pla.rot_speed = 0.03;
 	game->pla.flag_player = 0;
 	game->map.grid = NULL;
