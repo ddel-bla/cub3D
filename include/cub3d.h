@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:58:18 by cfeliz-r          #+#    #+#             */
-/*   Updated: 2024/10/18 15:58:20 by cfeliz-r         ###   ########.fr       */
+/*   Updated: 2024/10/18 20:15:04 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include "../lib/libft/libft.h"
 
 // Definiciones de macros
-# define WIN_W 1600
-# define WIN_H 1600
+# define WIN_W 800
+# define WIN_H 800
 # define TEX_W 64
 # define TEX_H 64
 # define SCALE 10

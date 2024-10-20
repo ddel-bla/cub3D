@@ -18,14 +18,14 @@ static void	set_player_direction_ew(t_game *game, char dir)
 	{
 		game->pla.dir_x = 0;
 		game->pla.dir_y = -1;
-		game->pla.plane_x = -0.66;
+		game->pla.plane_x = 0.66;
 		game->pla.plane_y = 0;
 	}
 	else if (dir == 'S')
 	{
 		game->pla.dir_x = 0;
 		game->pla.dir_y = 1;
-		game->pla.plane_x = 0.66;
+		game->pla.plane_x = -0.66;
 		game->pla.plane_y = 0;
 	}
 }
