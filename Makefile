@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cfeliz-r <cfeliz-r@student.42.fr>          +#+  +:+       +#+         #
+#    By: cfeliz-r < cfeliz-r@student.42madrid.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 20:24:57 by ddel-bla          #+#    #+#              #
-#    Updated: 2024/10/18 15:47:55 by cfeliz-r         ###   ########.fr        #
+#    Updated: 2024/10/21 11:58:46 by cfeliz-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ NAME    = cub3D
 CC      = gcc
 INCLUDE = -L ./lib/libft -lft -L ./lib/minilibx -lmlx_Linux -lX11 -lXext -lm
 DEBUG   = -fsanitize=address
-CFLAGS  = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS  = -Wall -Werror -Wextra
 
 # Clean command
 RM      = rm -f

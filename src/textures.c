@@ -6,7 +6,7 @@
 /*   By: cfeliz-r < cfeliz-r@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:14:58 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/21 10:49:52 by cfeliz-r         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:53:01 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,51 +62,52 @@ void	load_textures(t_game *g)
 	fprintf(stderr, "All textures loaded successfully.\n");
 }
 
-int	parse_color(char *str)
+static void	parse(t_game *game, char *line)
 {
-	int	r;
-	int	g;
-	int	b;
-
-	if (!ft_isdigit(*str))
-		return (-1);
-	r = ft_atoi(str);
-	while (ft_isdigit(*str))
-		str++;
-	if (*str++ != ',' || !ft_isdigit(*str))
-		return (-1);
-	g = ft_atoi(str);
-	while (ft_isdigit(*str))
-		str++;
-	if (*str++ != ',' || !ft_isdigit(*str))
-		return (-1);
-	b = ft_atoi(str);
-	while (ft_isdigit(*str))
-		str++;
-	if (*str != '\0' || r < 0 || r > 255
-		|| g < 0 || g > 255 || b < 0 || b > 255)
-		return (-1);
-	return (r << 16 | g << 8 | b);
+	if (ft_strncmp(line, "EA ", 3) == 0)
+	{
+		if (game->texture_paths.east_texture)
+			exit_game(game, "Error: Duplicate identifier in .cub file.");
+		game->texture_paths.east_texture = ft_strdup(line + 3);
+	}
+	else if (ft_strncmp(line, "F ", 2) == 0)
+	{
+		if (game->floor != -1)
+			exit_game(game, "Error: Duplicate floor in .cub file.");
+		game->floor = parse_color(line + 2);
+		game->control_flags++;
+	}
+	else if (ft_strncmp(line, "C ", 2) == 0)
+	{
+		if (game->ceiling != -1)
+			exit_game(game, "Error: Duplicate ceiling in .cub file.");
+		game->ceiling = parse_color(line + 2);
+		game->control_flags++;
+	}
+	else
+		exit_game(game, "Error: Invalid identifier in .cub file.");
 }
 
 void	parse_textures(t_game *game, char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
-		game->texture_paths.north_texture = ft_strdup(line + 3);
-	else if (ft_strncmp(line, "SO ", 3) == 0)
-		game->texture_paths.south_texture = ft_strdup(line + 3);
-	else if (ft_strncmp(line, "WE ", 3) == 0)
-		game->texture_paths.west_texture = ft_strdup(line + 3);
-	else if (ft_strncmp(line, "EA ", 3) == 0)
-		game->texture_paths.east_texture = ft_strdup(line + 3);
-	else if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
 	{
-		if (ft_strncmp(line, "F ", 2) == 0)
-			game->floor = parse_color(line + 2);
-		else
-			game->ceiling = parse_color(line + 2);
-		game->control_flags++;
+		if (game->texture_paths.north_texture)
+			exit_game(game, "Error: Duplicate identifier in .cub file.");
+		game->texture_paths.north_texture = ft_strdup(line + 3);
+	}
+	else if (ft_strncmp(line, "SO ", 3) == 0)
+	{
+		if (game->texture_paths.south_texture)
+			exit_game(game, "Error: Duplicate identifier in .cub file.");
+		game->texture_paths.south_texture = ft_strdup(line + 3);
+	}
+	else if (ft_strncmp(line, "WE ", 3) == 0)
+	{
+		if (game->texture_paths.west_texture)
+			exit_game(game, "Error: Duplicate identifier in .cub file.");
+		game->texture_paths.west_texture = ft_strdup(line + 3);
 	}
 	else
-		exit_game(game, "Error: Invalid identifier in .cub file.");
+		parse(game, line);
 }

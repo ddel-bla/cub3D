@@ -67,3 +67,30 @@ int	validate_map(t_game *game)
 		exit_game(game, "Error: multiple players.");
 	return (1);
 }
+
+int	parse_color(char *str)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	if (!ft_isdigit(*str))
+		return (-1);
+	r = ft_atoi(str);
+	while (ft_isdigit(*str))
+		str++;
+	if (*str++ != ',' || !ft_isdigit(*str))
+		return (-1);
+	g = ft_atoi(str);
+	while (ft_isdigit(*str))
+		str++;
+	if (*str++ != ',' || !ft_isdigit(*str))
+		return (-1);
+	b = ft_atoi(str);
+	while (ft_isdigit(*str))
+		str++;
+	if (*str != '\0' || r < 0 || r > 255
+		|| g < 0 || g > 255 || b < 0 || b > 255)
+		return (-1);
+	return (r << 16 | g << 8 | b);
+}
