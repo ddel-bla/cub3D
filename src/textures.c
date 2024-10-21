@@ -6,7 +6,7 @@
 /*   By: cfeliz-r < cfeliz-r@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:14:58 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/21 11:53:01 by cfeliz-r         ###   ########.fr       */
+/*   Updated: 2024/10/21 12:10:51 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,10 @@ int	*select_texture(t_game *g, t_ray *r)
 
 void	load_textures(t_game *g)
 {
-	fprintf(stderr, "Loading textures...\n");
 	load_texture(g, g->no, g->texture_paths.north_texture);
 	load_texture(g, g->so, g->texture_paths.south_texture);
 	load_texture(g, g->ea, g->texture_paths.east_texture);
 	load_texture(g, g->we, g->texture_paths.west_texture);
-	fprintf(stderr, "All textures loaded successfully.\n");
 }
 
 static void	parse(t_game *game, char *line)
