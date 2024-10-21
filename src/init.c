@@ -6,7 +6,7 @@
 /*   By: cfeliz-r < cfeliz-r@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:10:32 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/10/18 20:41:13 by cfeliz-r         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:48:46 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_game(t_game *game)
 	game->pla.move_speed = 0.15;
 	game->pla.rot_speed = 0.03;
 	game->pla.flag_player = 0;
+	game->control_flags = 0;
 	game->map.grid = NULL;
 	game->ceiling = 0;
 	game->floor = 0;
