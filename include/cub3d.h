@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: cfeliz-r < cfeliz-r@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:58:18 by cfeliz-r          #+#    #+#             */
-/*   Updated: 2024/10/18 20:15:04 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:06:22 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,6 @@ void	init_window(t_game *g);
 void	move_player(t_game *g, int dir);
 void	strafe_player(t_game *g, int dir);
 void	rotate_player(t_game *g, double angle);
-
-// Prototipos de funciones en parse_map.c
-void	parse_map(t_game *g, const char *filename);
 
 // Prototipos de funciones en render_dda.c
 int		handle_dda(t_game *g, t_ray *r);
